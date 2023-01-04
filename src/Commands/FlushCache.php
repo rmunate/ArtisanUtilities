@@ -113,7 +113,7 @@ class FlushCache extends Command {
 
         /* ReIniciando Composer */
         // $this->info(ArtisanUtilities::processLine("Regenerando Autoload Composer"));
-        // @shell_exec('composer dump-autoload');
+        // @shell_exec('composer dump-autoload'); //
 
         /* Cierre */
         $this->newLine();

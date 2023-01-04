@@ -339,7 +339,6 @@ class ArtisanUtilities {
         } else {
             array_push($data, Self::$noChangesRecorded);
         }
-
         return $data;
     }
 

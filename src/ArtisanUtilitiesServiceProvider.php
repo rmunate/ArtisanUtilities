@@ -7,13 +7,11 @@ use Illuminate\Support\ServiceProvider;
 class ArtisanUtilitiesServiceProvider extends ServiceProvider
 {
 
-    public function boot()
-    {
+    public function boot(){
         $this->registerCommands();
     }
 
-    protected function registerCommands()
-    {
+    protected function registerCommands(){
         $this->commands([
             Commands\FlushCache::class,
             Commands\GitPush::class,

@@ -150,6 +150,5 @@ class GitRevert extends Command{
             $this->line(ArtisanUtilities::$end);
 
         }
-
     }
 }

@@ -14,7 +14,7 @@ PHP ^7.4
 -	Limpie su proyecto las veces que quiera con una sola línea (Limpie el cache, tokken vencidos, etc.).
 - Mejore el rendimiento del sistema con un simple comando. (Permisos a Public y Storage, Ajuste de los GitIgnore, etc.).
 
-## Instalación (Composer)
+## Instalación
 
 # Instalar con composer.
 ```sh
@@ -53,16 +53,14 @@ php artisan FlushCache
 php artisan GitPush Rama --m=“Comentario commit”
 ```
 
-Estructura Corta
+# Estructura Corta
 ![image](https://user-images.githubusercontent.com/91748598/169713010-3df69b26-cf19-4414-bf5c-05d23133b6aa.png)
 
-Confirmación de Bajar Cambios
+# Confirmación de Bajar Cambios
 ![image](https://user-images.githubusercontent.com/91748598/169713035-8df77098-82f3-4e2b-84f1-2b66a027bf4d.png)
 
-Visual Completa
+# Visual Completa
 ![image](https://user-images.githubusercontent.com/91748598/189487197-9054821b-8d2a-42fd-b9be-cf0b2a830779.png)
-
-
 
 | COMANDO | DESCRIPCIÓN |
 | ----------- | ----------- |

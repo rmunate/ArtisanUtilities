@@ -87,7 +87,6 @@ class GitReset extends Command
                     $this->info('Se Listaran Un Maximo De ' . $cantidad . ' Commits Aplicados Ya Que El Valor Ingresado Supera El Real Existente.');
 
                 }
-
             }
 
         } else {

@@ -235,6 +235,5 @@ class GitPush extends Command {
         $this->newLine();
         $this->info(ArtisanUtilities::$last);
         $this->line(ArtisanUtilities::$end);
-
     }
 }
