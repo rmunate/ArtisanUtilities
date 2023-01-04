@@ -19,7 +19,7 @@ namespace Rmunate\ArtisanUtilities\Commands;
 
 use Artisan;
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities;
+use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
 class GitRevert extends Command{
 
