@@ -16,12 +16,12 @@ PHP ^7.4
 
 ## Instalación (Composer)
 
-1. Instalar con composer.
+# Instalar con composer.
 ```sh
 composer require rmunate/artisan-utilities
 ```
 
-2. Presentar el Proveedor en el archivo config\app.php.
+# Presentar el Proveedor en el archivo config\app.php.
 
 ```sh
 'providers' => [
@@ -29,9 +29,6 @@ composer require rmunate/artisan-utilities
 	Rmunate\ArtisanUtilities\ArtisanUtilitiesServiceProvider::class,
 ],
 ```
-
-![image](https://user-images.githubusercontent.com/91748598/180231263-fb5183cd-0b1e-453b-81fc-8916e3be2e78.png)
-
 
 ## Comandos
 
