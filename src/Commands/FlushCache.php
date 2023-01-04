@@ -78,7 +78,7 @@ class FlushCache extends Command {
                 'route' => 'Cache de Rutas Eliminado del Proyecto Correctamente',
                 'auth' => 'Cache de Tokens Caducados Eliminado del Proyecto Correctamente en base de datos',
                 'event' => 'Cache de Eventos Eliminado del Proyecto Correctamente',
-                'permission' => 'Cache de Permisos Eliminado del Proyecto Correctamente',
+                // 'permission' => 'Cache de Permisos Eliminado del Proyecto Correctamente',
                 'queue' => 'Cache de Cola Eliminado del Proyecto Correctamente',
                 'schedule' => 'Cache de Calendario Eliminado del Proyecto Correctamente',
                 'optimize' => 'Proyecto Optimizado'
@@ -112,8 +112,8 @@ class FlushCache extends Command {
         @ArtisanUtilities::gitIgnoreBase();
 
         /* ReIniciando Composer */
-        $this->info(ArtisanUtilities::processLine("Regenerando Autoload Composer"));
-        @shell_exec('composer dump-autoload');
+        // $this->info(ArtisanUtilities::processLine("Regenerando Autoload Composer"));
+        // @shell_exec('composer dump-autoload');
 
         /* Cierre */
         $this->newLine();
