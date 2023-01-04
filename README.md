@@ -26,7 +26,7 @@ composer require rmunate/artisan-utilities
 ```sh
 'providers' => [
 	//
-	Rmunate\Php2js\ArtisanUtilitiesServiceProvider::class,
+	Rmunate\ArtisanUtilities\ArtisanUtilitiesServiceProvider::class,
 ],
 ```
 
