@@ -18,7 +18,7 @@
 namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
-use App\Console\ArtisanUtilities;
+use Rmunate\ArtisanUtilities;
 
 class GitPush extends Command {
 
