@@ -1,6 +1,13 @@
 {
     "name": "rmunate/artisan-utilities",
     "description": "Este paquete contiene diversos comandos de Artisan que buscan ejecutar diferentes trabajos relacionados con el control de cambios, el trabajo comunitario y la optimización del proyecto. Todo desde la facilidad del terminal. Funciona para proyectos Laravel ^8.0 PHP ^7.4",
+    "keywords": [
+        "artisan",
+        "git",
+        "altum",
+        "rmunate"
+    ],
+    "homepage": "https://github.com/rmunate/ArtisanUtilities",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -22,7 +29,12 @@
     },
     "extra" : {
         "branch-alias" : {
-            "dev-main": "3.1.x-dev"
+            "dev-main": "5.0.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Rmunate\\ArtisanUtilities\\ArtisanUtilitiesServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",

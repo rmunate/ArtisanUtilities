@@ -1,4 +1,4 @@
-# Artisan Git Utilities V 3.1.0 - [ 04-01-2023 ]
+# Artisan Git Utilities V 5.0.0 - [ 05-01-2023 ]
 ## _Automatización Manejo GIT para trabajo en Equipo_
 
 [![N|Solid](https://i.ibb.co/ZLzQTpm/Firma-Git-Hub.png)](#)
@@ -21,7 +21,7 @@ PHP ^7.4
 composer require rmunate/artisan-utilities
 ```
 
-# Presentar el Proveedor en el archivo config\app.php.
+# (OPCIONAL) Presentar el Proveedor en el archivo config\app.php.
 
 ```sh
 'providers' => [
