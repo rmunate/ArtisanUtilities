@@ -16,7 +16,11 @@ class ArtisanUtilitiesServiceProvider extends ServiceProvider
             Commands\FlushCache::class,
             Commands\GitPush::class,
             Commands\GitReset::class,
-            Commands\GitRevert::class
+            Commands\GitRevert::class,
+            Commands\AccessFolders::class,
+            Commands\ConfigCache::class,
+            Commands\DefaultIgnore::class,
+            Commands\DefaultStorage::class
         ]);
     }
 }
