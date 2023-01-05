@@ -27,7 +27,7 @@ class FlushCache extends Command {
     protected $signature = 'FlushCache';
 
     /* Descripción del Comando */
-    protected $description = 'Ejecute la limpieza total de su proyecto, recuerde estar conectado a la base de datos, ya que se ejecutará la limpieza de información basura desde las tablas por defecto de Laravel. Elimina los Logs del proyecto, Ajusta la configuración correcta de la carpeta Storage, asigna los permisos para el correcto funcionamiento del sistema en servidores de producción o pruebas.';
+    protected $description = 'Ejecute la limpieza total de su proyecto (cache, vistas, rutas, configuración, autenticación, eventos, colas, calendarios), recuerde estar conectado a la base de datos, ya que se ejecutará la limpieza de información “basura” desde las tablas por defecto de Laravel (Sin tocar información del sistema). Elimina los Logs del proyecto. Ajusta la configuración correcta de la carpeta Storage. Asigna los permisos que corresponden a las diferentes carpetas del Framework para garantizar el correcto funcionamiento.';
 
     /* @return Void */
     public function handle(){
@@ -104,16 +104,6 @@ class FlushCache extends Command {
         $this->info(ArtisanUtilities::processLine("Permisos De Escritura Asignados A La Carpeta Storage"));
         @shell_exec('chmod -R 777 public');
         $this->info(ArtisanUtilities::processLine("Permisos De Escritura Asignados A La Carpeta Public"));
-
-        /* Ajuste GitIgnore Principal del Proyecto */
-        $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('AJUSTANDO GIT_IGNORE PRINCIPAL'));
-        $this->info(ArtisanUtilities::processLine("Archivo Principal de GitIgnore Ajustado al estandar."));
-        @ArtisanUtilities::gitIgnoreBase();
-
-        /* ReIniciando Composer */
-        // $this->info(ArtisanUtilities::processLine("Regenerando Autoload Composer"));
-        // @shell_exec('composer dump-autoload'); //
 
         /* Cierre */
         $this->newLine();
