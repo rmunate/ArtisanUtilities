@@ -122,6 +122,22 @@ php artisan apache-restart-fpm
 | `php artisan apache-restart-fpm` | (LINUX UBUNTU PHP-FPM) Reiniciar el servicio de Apache en el servidor Lunux Ubunto con FPM instalado. |
 
 ```sh
+php artisan Spatie Show
+```
+
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| `php artisan Spatie Show` | (Solo si se usa Spatie Permission) Lista los permisos creados en el sistema. |
+
+```sh
+php artisan Spatie Cache
+```
+
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| `php artisan Spatie Cache` | (Solo si se usa Spatie Permission) Limpia el cache de permisos de Spatie sobre todo el sistema. |
+
+```sh
 php artisan GitReset --log=“10”
 ```
 
