@@ -19,7 +19,7 @@ class Spatie extends Command {
     protected $signature = 'Spatie {action}';
 
     /* Descripción del Comando */
-    protected $description = 'Comandos Spatie.';
+    protected $description = 'Comandos Spatie Show(Listar Comandos) Cache(Limpiar Cache Permisos).';
 
     /* @return Void */
     public function handle(){
@@ -41,6 +41,9 @@ class Spatie extends Command {
 
             foreach ($guards as $guard) {
 
+                $this->newLine();
+                $this->info("Accediendo A La Libreria Spatie");
+                $this->newLine();
                 $this->info("Guard: $guard");
 
                 $roles = $roleClass::whereGuardName($guard)

@@ -32,6 +32,7 @@ class ArtisanUtilitiesServiceProvider extends ServiceProvider
             Commands\DefaultStorage::class,
             Commands\PHPVersion::class,
             Commands\Spatie::class,
+            Commands\PHPMAC::class,
         ]);
     }
 }
