@@ -45,7 +45,7 @@ class PHPMAC extends Command {
                     $versiones = explode("\n", $versiones);
                     $php_versiones = [];
                     foreach ($versiones as $k => $v) {
-                        if (str_contains($v, 'php/php@') && !str_contains($v, 'debug')) {
+                        if (str_contains($v, 'php/php@') && !str_contains($v, 'debug') && !str_contains($v, '8.3')) {
                             $netsData = str_replace('shivammathur/php/','',$v);
                             array_push($php_versiones, $netsData);
                         }
@@ -55,17 +55,11 @@ class PHPMAC extends Command {
                         $version = $this->choice('Seleccione la Version de PHP a usar.',$php_versiones);
 
                         $cambio =  shell_exec("brew unlink php && brew link --overwrite --force $version");
-
-                        if (str_contains($cambio, 'Error:')) {
-                            $this->error("No se logró cargar la version $version");
-                        } else {
-                            $this->line("Version $version Cargada Exitosamente.");
-                        }
-
                         $apache =  shell_exec("brew services restart httpd");
                         $this->line("Servicio Apache Reiniciado Con Exito");
                         
                         $this->line("--------------------------------------");
+                        $this->line("---  VERSIÓN VIGENTE  ---");
                         $version = shell_exec('php -v');
                         $this->info($version);
                         $this->line("--------------------------------------");
