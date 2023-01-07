@@ -10,7 +10,7 @@ use Symfony\Component\Console\Helper\TableCell;
 use Spatie\Permission\Contracts\Role as RoleContract;
 use Spatie\Permission\Contracts\Permission as PermissionContract;
 
-class Spatie extends Command {
+class PHPMAC extends Command {
 
     /**
      * Nombre del Comando
@@ -27,7 +27,7 @@ class Spatie extends Command {
         /* Inicio de Comando */
         $this->line(ArtisanUtilities::$start); 
 
-        
+
         
         
     
