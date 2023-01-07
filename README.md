@@ -105,6 +105,14 @@ php artisan mac-php
 | `php artisan mac-php` | (MAC OS) (Solo si se trabaja con HomeBrew) Lista las versiones de PHP disponibles instaladas en el MAC, permitiendo seleccionar cual configurar al sistema. |
 
 ```sh
+php artisan fpm-php
+```
+
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| `php artisan fpm-php` | (LINUX UBUNTU PHP-FPM) Permite cambiar la versión de PHP configurada en el servidor Linux Ubunto. |
+
+```sh
 php artisan apache-restart
 ```
 
