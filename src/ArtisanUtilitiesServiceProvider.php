@@ -33,6 +33,8 @@ class ArtisanUtilitiesServiceProvider extends ServiceProvider
             Commands\PHPVersion::class,
             Commands\Spatie::class,
             Commands\PHPMAC::class,
+            Commands\RestarApacheFPM::class,
+            Commands\RestarApache::class,
         ]);
     }
 }
