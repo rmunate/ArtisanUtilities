@@ -90,6 +90,38 @@ php artisan GitPush Rama
 ![image](https://user-images.githubusercontent.com/91748598/189487197-9054821b-8d2a-42fd-b9be-cf0b2a830779.png)
 
 ```sh
+php artisan PHPVersion
+```
+
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| `php artisan PHPVersion` | Retorna la versión en uso de PHP. |
+
+```sh
+php artisan mac-php
+```
+
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| `php artisan mac-php` | (MAC OS) (Solo si se trabaja con HomeBrew) Lista las versiones de PHP disponibles instaladas en el MAC, permitiendo seleccionar cual configurar al sistema. |
+
+```sh
+php artisan apache-restart
+```
+
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| `php artisan apache-restart` | (LINUX UBUNTU) Reiniciar el servicio de Apache en el servidor |
+
+```sh
+php artisan apache-restart-fpm
+```
+
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| `php artisan apache-restart-fpm` | (LINUX UBUNTU PHP-FPM) Reiniciar el servicio de Apache en el servidor Lunux Ubunto con FPM instalado. |
+
+```sh
 php artisan GitReset --log=“10”
 ```
 
