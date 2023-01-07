@@ -25,7 +25,6 @@ class RestarApache extends Command {
         $this->info(ArtisanUtilities::headerLine('REINICIANDO APACHE'));
 
         $reset_apache = shell_exec('sudo restart apache2');
-        $this->info($reset_apache);
         
         /* Cierre */
         $this->newLine();

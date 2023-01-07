@@ -25,7 +25,6 @@ class RestarApacheFPM extends Command {
         $this->info(ArtisanUtilities::headerLine('REINICIANDO APACHE FPM'));
 
         $reset_apache = shell_exec('sudo systemctl restart apache2');
-        $this->info($reset_apache);
         
         /* Cierre */
         $this->newLine();
