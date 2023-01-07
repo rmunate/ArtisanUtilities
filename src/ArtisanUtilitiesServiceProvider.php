@@ -2,15 +2,24 @@
 
 namespace Rmunate\ArtisanUtilities;
 
+/*
+|--------------------------------------------------------------------------
+| Comandos Personalizados Artisan
+| Autor: Ing. Raul Mauricio Uñate Castro
+|--------------------------------------------------------------------------
+*/
+
 use Illuminate\Support\ServiceProvider;
 
 class ArtisanUtilitiesServiceProvider extends ServiceProvider
 {
 
+    /* Registrar Comandos Sistema */
     public function boot(){
         $this->registerCommands();
     }
 
+    /* Comandos a Registrar */
     protected function registerCommands(){
         $this->commands([
             Commands\FlushCache::class,
@@ -20,7 +29,9 @@ class ArtisanUtilitiesServiceProvider extends ServiceProvider
             Commands\AccessFolders::class,
             Commands\ConfigCache::class,
             Commands\DefaultIgnore::class,
-            Commands\DefaultStorage::class
+            Commands\DefaultStorage::class,
+            Commands\PHPVersion::class,
+            Commands\Spatie::class,
         ]);
     }
 }

@@ -38,7 +38,7 @@ class GitPush extends Command {
      * Mensaje que se retorna si la rama enviada como parametro no es la misma que esta en uso.
      * @var string
      */
-    private $msgErrorRama = 'La Rama Ingresada Como Parámetro No Es La Misma Sobre La Cual Se Está Trabajando, Por Favor Vuelva A Ejecutar El Comando Ingresando La Rama Actual.';
+    private $msgErrorRama = 'La Rama Ingresada Como Parámetro No Es La Misma Sobre La Cual Se Está Trabajando, Por Favor Vuelva A Ejecutar El Comando Sobre La Rama Correcta.';
 
     /**
      * Mensaje en los casos donde el comentario personalizado es inferior a 2 caracteres.
@@ -81,12 +81,6 @@ class GitPush extends Command {
             return $this->error($this->msgErrorRama);
         };
 
-        /* Ajustar el Git Ignore */
-        $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('AJUSTANDO GIT_IGNORE PRINCIPAL'));
-        $this->info(ArtisanUtilities::processLine("Archivo Principal de GitIgnore Ajustado al estandar."));
-        @ArtisanUtilities::gitIgnoreBase();
-
         /* Estatus del proyecto */
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('LEYENDO CAMBIOS EN EL PROYECTO'));
@@ -97,15 +91,15 @@ class GitPush extends Command {
         /* LLamado Comando FlushCache */
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('LIMPIANDO EL PROYECTO'));
-        $this->info(ArtisanUtilities::processLine('Ejecutado Exitosamente el Comando => php artisan FlushCache'));
         ArtisanUtilities::Call('FlushCache');
+        $this->info(ArtisanUtilities::processLine('Ejecutado Exitosamente En Segundo Plano El Comando => php artisan FlushCache'));
 
         /* GIT ADD . */
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('REGISTRANDO CAMBIOS LOCALES EN GIT'));
-        $this->line(ArtisanUtilities::processLine('Invocado con Exito => git add .'));
         ArtisanUtilities::GitAdd();
         ArtisanUtilities::ProcessingTime(3);
+        $this->line(ArtisanUtilities::processLine('Invocado con Exito => git add .'));
 
         /* GIT COMMIT */
         /* Definir si existe comentarios para el Commit */
@@ -120,10 +114,10 @@ class GitPush extends Command {
                 /* De tener mas de dos Caracteres, se usará el texto como comentario del commmit */
                 $comentarioCommit = $this->option()["m"];
                 $this->newLine();
-                $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
-                $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comentarioCommit . '"'));
                 ArtisanUtilities::GitCommit($comentarioCommit);
                 ArtisanUtilities::ProcessingTime(3);
+                $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
+                $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comentarioCommit . '"'));
 
             } else {
 
@@ -138,10 +132,10 @@ class GitPush extends Command {
 
                 /* Git Commit */
                 $this->newLine();
-                $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
-                $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
                 ArtisanUtilities::GitCommit($comment);
                 ArtisanUtilities::ProcessingTime(3);
+                $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
+                $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
             }
 
         } else {
@@ -157,10 +151,10 @@ class GitPush extends Command {
 
             /* Git Commit */
             $this->newLine();
-            $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
-            $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
             ArtisanUtilities::GitCommit($comment);
             ArtisanUtilities::ProcessingTime(3);
+            $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
+            $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
 
         }
 
@@ -185,7 +179,7 @@ class GitPush extends Command {
 
                 $this->newLine();
                 $this->info(ArtisanUtilities::headerLine('DESCARGAR CAMBIOS DE OTRO DESARROLLADOR!'));
-                $this->info('Este Proyecto Tiene Un Total De ' . $cantidadRamas . ' Rama(s) En GIT');
+                $this->info('Este Proyecto Tiene Un Total De ' . $cantidadRamas . ' Rama(s) Remotas En GIT');
 
                 $preguntaPull = $this->choice($this->msgConfirmPull,['No', 'Si']);
 
@@ -198,10 +192,10 @@ class GitPush extends Command {
 
                     /* Git Pull */
                     $this->newLine();
-                    $this->info(ArtisanUtilities::headerLine('DESCARGANDO CAMBIOS'));
-                    $this->line(ArtisanUtilities::processLine('Invocado con Exito => git pull origin ' . $pullRama));
                     ArtisanUtilities::GitPull($pullRama);
                     ArtisanUtilities::ProcessingTime(4);
+                    $this->info(ArtisanUtilities::headerLine('DESCARGANDO CAMBIOS'));
+                    $this->line(ArtisanUtilities::processLine('Invocado con Exito => git pull origin ' . $pullRama));
 
                     /* Git Add */
                     ArtisanUtilities::GitAdd();
@@ -212,10 +206,10 @@ class GitPush extends Command {
 
                     /* Git Commit */
                     $this->newLine();
-                    $this->info(ArtisanUtilities::headerLine('CREANDO REGISTRO LOCAL CON LOS CAMBIOS DESCARGADOS'));
-                    $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
                     ArtisanUtilities::GitCommit($comment);
                     ArtisanUtilities::ProcessingTime(3);
+                    $this->info(ArtisanUtilities::headerLine('CREANDO REGISTRO LOCAL CON LOS CAMBIOS DESCARGADOS'));
+                    $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
 
                 }
             }
@@ -226,10 +220,10 @@ class GitPush extends Command {
 
         /* GIT PUSH */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('SUBIENDO CAMBIOS A LA RAMA REMOTA'));
-        $this->line(ArtisanUtilities::processLine('Invocado con Exito => git push origin ' . $rama));
         ArtisanUtilities::GitPush($rama);
         ArtisanUtilities::ProcessingTime(4);
+        $this->info(ArtisanUtilities::headerLine('SUBIENDO CAMBIOS A LA RAMA REMOTA'));
+        $this->line(ArtisanUtilities::processLine('Invocado con Exito => git push origin ' . $rama));
 
         /* Cierre */
         $this->newLine();

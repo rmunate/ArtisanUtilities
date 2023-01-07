@@ -6,13 +6,13 @@ use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
 
-class DefaultIgnore extends Command {
+class PHPVersion extends Command {
 
     /* Nombre del Comando */
-    protected $signature = 'DefaultIgnore';
+    protected $signature = 'PHPVersion';
 
     /* Descripción del Comando */
-    protected $description = 'Ajusta el Git Ignore principal del proyecto, de acuerdo con el estándar del Framework, adicional valida si usa dependencias de NPM o carpetas del IDE para igualmente ignorarlas en el cargue.';
+    protected $description = 'Conocer Versión de PHP En USO.';
 
     /* @return Void */
     public function handle(){
@@ -22,10 +22,11 @@ class DefaultIgnore extends Command {
 
         /* Ajuste GitIgnore Principal del Proyecto */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('AJUSTANDO GIT_IGNORE PRINCIPAL'));
-        @ArtisanUtilities::gitIgnoreBase();
-        $this->info(ArtisanUtilities::processLine("Archivo Principal de GitIgnore Ajustado al Estandar."));
+        $this->info(ArtisanUtilities::headerLine('VERSION DE PHP EN USO'));
 
+        $version = shell_exec('php -v');
+        $this->info($version);
+        
         /* Cierre */
         $this->newLine();
         $this->info(ArtisanUtilities::$last);

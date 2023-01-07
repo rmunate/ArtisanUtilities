@@ -32,7 +32,7 @@ class GitReset extends Command
      * Descripcion del proyecto
      * @var string
      */
-    protected $description = 'Reversar Cambios de Commits (Proceso sin Reversa)';
+    protected $description = 'Reversar Cambios de Commits (Proceso Sin Reversa Ni recuperación De Información)';
 
     /**
      * Constructor
@@ -60,7 +60,7 @@ class GitReset extends Command
         $msjCommits = $countCommits - 1;
 
         /* Mensaje con la cantidad de commits del repositorio */
-        $this->info('El Repositorio Cuenta Con Un Total De ' . $msjCommits . ' Commits Aplicados.');
+        $this->info('El Repositorio Cuenta Con Un Total De ' . $msjCommits . ' Commits Registrados.');
 
         /* Eliminar los comits que llegasen a aparecer repetidos */
         $uniqueCommits = array_unique($arrayCommits);

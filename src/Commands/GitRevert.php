@@ -33,7 +33,7 @@ class GitRevert extends Command{
      * Descripcion del proyecto
      * @var string
      */
-    protected $description = 'Reversar Cambios en el directorio de destino';
+    protected $description = 'Reversar Cambios en el Proyecto';
 
     /**
      * Constructor

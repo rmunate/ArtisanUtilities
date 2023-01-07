@@ -22,7 +22,7 @@ class DefaultStorage extends Command {
 
         /* Ajuste Storage & Logs */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('AJUSTE CARPETA STORAGE'));
+        $this->info(ArtisanUtilities::headerLine('REAJUSTE CARPETA STORAGE'));
         @ArtisanUtilities::DefaultStorage();
         $this->info(ArtisanUtilities::processLine("Ajuste Estructura Carpeta Storage Completa."));
         $this->info(ArtisanUtilities::processLine("Log Laravel Del Proyecto Reiniciado Correctamente."));

@@ -59,7 +59,7 @@ class FlushCache extends Command {
         }
 
         if ($macOS) {
-            $this->info(ArtisanUtilities::processLine("Definiendo Comandos Compatibles En MAC OS."));
+            $this->info(ArtisanUtilities::processLine("Definidos Los Comandos Compatibles En MAC OS."));
             $commands = [
                 'cache' => 'Cache Eliminado del Proyecto Correctamente',
                 'view' => 'Cache de Vistas Eliminado del Proyecto Correctamente',
@@ -71,6 +71,7 @@ class FlushCache extends Command {
                 'optimize' => 'Proyecto Optimizado'
             ];
         } else {
+            $this->info(ArtisanUtilities::processLine("Definidos Los Comandos Compatibles En Su Sistema Operativo."));
             $commands = [
                 'cache' => 'Cache Eliminado del Proyecto Correctamente',
                 'config' => 'Cache de Configuración Eliminado del Proyecto Correctamente',
@@ -78,7 +79,6 @@ class FlushCache extends Command {
                 'route' => 'Cache de Rutas Eliminado del Proyecto Correctamente',
                 'auth' => 'Cache de Tokens Caducados Eliminado del Proyecto Correctamente en base de datos',
                 'event' => 'Cache de Eventos Eliminado del Proyecto Correctamente',
-                // 'permission' => 'Cache de Permisos Eliminado del Proyecto Correctamente',
                 'queue' => 'Cache de Cola Eliminado del Proyecto Correctamente',
                 'schedule' => 'Cache de Calendario Eliminado del Proyecto Correctamente',
                 'optimize' => 'Proyecto Optimizado'

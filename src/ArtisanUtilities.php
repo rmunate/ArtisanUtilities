@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Artisan;
 class ArtisanUtilities {
 
     /* Lineas de Inicio y Cierre Comando Artisan */
-    public static $start = '► ≡≡≡ Start Artisan Utilities ≡≡≡ ◄';
+    public static $start = '► ≡≡≡ Inicio Ejecución Artisan Utilities ≡≡≡ ◄';
     public static $last = '► ─── ¡Proceso ejecutado con Exito! ─── ◄';
-    public static $end = '► ≡≡≡ End Artisan Utilities ≡≡≡ ◄';
+    public static $end = '► ≡≡≡ Fin Ejecución Artisan Utilities ≡≡≡ ◄';
     public static $cancel = '► ─── ¡Proceso Cancelado! ─── ◄';
 
     /**
@@ -280,7 +280,6 @@ class ArtisanUtilities {
             'auth' => 'auth:clear-resets',
             'optimize' => 'optimize:clear',
             'event' => 'event:clear',
-            'permission' => 'permission:cache-reset',
             'queue' => 'queue:flush',
             'schedule' => 'schedule:clear-cache',
             /* Llamados a Metodos Propios */
@@ -300,10 +299,11 @@ class ArtisanUtilities {
      * @return Void
      */
     public static function ConfigCache(){
-        /* Solo se Ejecuta en Ambientes Diferentes a Desarrollo */
-        // if (!env('APP_DEBUG')) {
-            return  Artisan::call('config:cache');
-        // }
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('config:cache');
+        Artisan::call('view:clear');
+        return true;
     }
 
     /**
@@ -604,8 +604,6 @@ class ArtisanUtilities {
             if (file_exists(base_path() . '/public/mix-manifest.json')){
                 fwrite($gitignore, "/public/mix-manifest.json" . PHP_EOL);
                 fwrite($gitignore, "/public/css/app.css" . PHP_EOL);
-                fwrite($gitignore, "/public/css/forms-general.css" . PHP_EOL);
-                fwrite($gitignore, "/public/css/style.css" . PHP_EOL);
                 fwrite($gitignore, "/public/js/app.js" . PHP_EOL);
             }
 
@@ -695,6 +693,10 @@ class ArtisanUtilities {
             }
         }
     }
+
+    /**
+     * Llamado Metodos 
+     */
 
 }
 

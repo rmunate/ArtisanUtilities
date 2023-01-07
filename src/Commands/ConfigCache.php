@@ -23,14 +23,17 @@ class ConfigCache extends Command {
         /* Configuracion de Cache --- */
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('CONFIGURACION DE CACHE'));
+
+        /* Eliminar Cache Actual */
         @ArtisanUtilities::deleteTMP();
-        $this->info(ArtisanUtilities::headerLine('Eliminación Cache Actual'));
+        $this->info(ArtisanUtilities::headerLine('Eliminación Configuración De Cache Actual Exitoso'));
+
         @ArtisanUtilities::ConfigCache();
         $this->info(ArtisanUtilities::processLine("Cache Actualizado Exitosamente"));
 
         /* ReIniciando Composer */
-        $this->info(ArtisanUtilities::processLine("Regenerando Autoload Composer"));
         @shell_exec('composer dump-autoload'); //
+        $this->info(ArtisanUtilities::processLine("Autoload Composer Regenerado"));
 
         /* Cierre */
         $this->newLine();
