@@ -1,4 +1,4 @@
-# Artisan Git Utilities V 5.0.0 - [ 05-01-2023 ]
+# Artisan Git Utilities
 ## _Automatización Manejo GIT para trabajo en Equipo_
 
 [![N|Solid](https://i.ibb.co/ZLzQTpm/Firma-Git-Hub.png)](#)
