@@ -85,6 +85,7 @@ php artisan GitPush Rama
 | COMANDO | DESCRIPCIÓN |
 | ----------- | ----------- |
 | `php artisan GitPush Rama --m=“Comentario commit”` | Cargue los cambios de su repositorio a GIT (al Git que tenga configurada su máquina), este comando se puede ejecutar con comentario o sin comentario `php artisan GitPush Rama”` en este caso la misma librería le asignará un comentario de los archivos ajustados.  Además, el comando le preguntará si desea descargar cambios de alguna rama remota del proyecto, ejecutando la tarea por usted. Solo deberá seleccionar la rama de la cual quiere bajar cambios de la lista desplegable que le entrega el comando. |
+
 ![image](https://user-images.githubusercontent.com/91748598/189487197-9054821b-8d2a-42fd-b9be-cf0b2a830779.png)
 
 ```sh
