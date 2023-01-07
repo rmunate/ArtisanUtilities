@@ -84,9 +84,11 @@ class Spatie extends Command {
         } else if ($action == 'Cache') {
 
             if (app(PermissionRegistrar::class)->forgetCachedPermissions()) {
-                $this->info('Permission cache flushed.');
+                $this->newLine();
+                $this->info('Cache De Permisos Reiniciados.');
             } else {
-                $this->error('Unable to flush cache.');
+                $this->newLine();
+                $this->error('No se logró Reiniciar el Cache.');
             }
 
         } else {
