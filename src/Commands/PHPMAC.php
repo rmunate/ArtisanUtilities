@@ -55,8 +55,13 @@ class PHPMAC extends Command {
                         $version = $this->choice('Seleccione la Version de PHP a usar.',$php_versiones);
 
                         $cambio =  shell_exec("brew unlink php && brew link --overwrite --force $version");
-                        $this->line("Version $version Cargada Exitosamente.");
-                        
+
+                        if (str_contains($cambio, 'Error:')) {
+                            $this->error("No se logró cargar la version $version");
+                        } else {
+                            $this->line("Version $version Cargada Exitosamente.");
+                        }
+
                         $apache =  shell_exec("brew services restart httpd");
                         $this->line("Servicio Apache Reiniciado Con Exito");
                         
