@@ -22,9 +22,10 @@ class DefaultIgnore extends Command {
 
         /* Ajuste GitIgnore Principal del Proyecto */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('AJUSTANDO GIT_IGNORE PRINCIPAL'));
+        $this->info(ArtisanUtilities::headerLine('Ajustando .gitignore - Proyecto'));
         @ArtisanUtilities::gitIgnoreBase();
         $this->info(ArtisanUtilities::processLine("Archivo Principal de GitIgnore Ajustado al Estandar."));
+        $this->info(ArtisanUtilities::processLine("Archivo Publicado =>/.gitignore"));
 
         /* Cierre */
         $this->newLine();

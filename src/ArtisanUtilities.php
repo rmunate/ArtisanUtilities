@@ -694,10 +694,6 @@ class ArtisanUtilities {
         }
     }
 
-    /**
-     * Llamado Metodos 
-     */
-
 }
 
 

@@ -23,7 +23,7 @@ class RestarApacheFPM extends Command {
         /* Ajuste GitIgnore Principal del Proyecto */
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('REINICIANDO APACHE FPM'));
-
+        $this->info(ArtisanUtilities::processLine("Invocando el comando => sudo systemctl restart apache2"));
         $reset_apache = shell_exec('sudo systemctl restart apache2');
         
         /* Cierre */

@@ -52,7 +52,7 @@ class GitPush extends Command {
      */
     private $commentDefault = 'Registraremos el nombre del(los) archivo(s) modificado(s) de existir, de lo contrario la hora y fecha, en la ausencia de un comentario personalizado';
 
-    /**
+    /** 
      * Mensaje de Pregunta si desea hacer pull
      * @var string
      */

@@ -16,7 +16,7 @@ class ArtisanUtilitiesServiceProvider extends ServiceProvider
 
     /* Registrar Comandos Sistema */
     public function boot(){
-        $this->registerCommands();
+        $this->registerCommands(); 
     }
 
     /* Comandos a Registrar */

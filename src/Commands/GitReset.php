@@ -25,7 +25,7 @@ class GitReset extends Command
     /**
      * Nombre del Comando
      * @var string
-     */
+     */ 
     protected $signature = 'GitReset {--log=}';
 
     /**

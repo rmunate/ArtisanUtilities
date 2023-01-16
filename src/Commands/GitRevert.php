@@ -26,7 +26,7 @@ class GitRevert extends Command{
     /**
      * Nombre del Comando
      * @var string
-     */
+     */ 
     protected $signature = 'GitRevert {--log=}';
 
     /**

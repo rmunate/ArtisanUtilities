@@ -1,5 +1,5 @@
 # Artisan Git Utilities
-## _Automatización Manejo GIT para trabajo en Equipo_
+## _Automatización Manejo GIT, Permisos, Caches, etc. Ideal para trabajo en Equipo_
 
 [![N|Solid](https://i.ibb.co/ZLzQTpm/Firma-Git-Hub.png)](#)
 

@@ -37,16 +37,16 @@ class AccessFolders extends Command {
 
         /* Configuracion de permisos */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('CONFIGURACION DE PERMISOS CARPETAS (STORAGE AND PUBLIC)'));
+        $this->info(ArtisanUtilities::headerLine('CONFIGURACIÓN DE PERMISOS CARPETAS (STORAGE Y PUBLIC)'));
 
         /* Configuracion Carpeta Storage */
         @shell_exec('chmod -R 777 storage');
         $this->info(ArtisanUtilities::processLine("Accedido Correctamente al Interprete de Comandos"));
-        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta STORAGE"));
+        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta /STORAGE"));
 
         /* Configuracion Carpeta Public */
         @shell_exec('chmod -R 777 public');
-        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta PUBLIC"));
+        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta /PUBLIC"));
 
         /* Cierre */
         $this->newLine();

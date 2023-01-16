@@ -40,7 +40,8 @@ class FlushCache extends Command {
 
         /* Ajuste Storage & Logs */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('AJUSTE CARPETA STORAGE'));
+        $this->info(ArtisanUtilities::headerLine('PROCESO 1 => AJUSTE ESTRUCTURA CARPETA STORAGE'));
+        $this->info(ArtisanUtilities::processLine("Iniciando Reajuste Carpete Storage."));
         @ArtisanUtilities::DefaultStorage();
         $this->info(ArtisanUtilities::processLine("Ajuste Estructura Carpeta Storage Completa."));
         $this->info(ArtisanUtilities::processLine("Log Laravel Del Proyecto Reiniciado Correctamente."));
@@ -48,10 +49,10 @@ class FlushCache extends Command {
         /* Eliminacion Cache del proyecto */
         /* Comandos Artisan a Ejecutar - Mismo Orden de Ejecucion */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('LIMPIEZA DE PROYECTO'));
+        $this->info(ArtisanUtilities::headerLine('PROCESO 2 => LIMPIEZA DE PROYECTO'));
 
         /* Definir Comandos de Acuerdo al Sistema operativo */
-        $identifiers = ['Mac','Darwin']; //Textos Identificadores
+        $identifiers = ['Mac','Darwin']; //Textos Identificadores (Agregar n)
         $macOS = false;
         foreach ($identifiers as $identifier) { /* Validacion de Identificadores */
             $pos = strpos(php_uname(), $identifier);
@@ -71,7 +72,7 @@ class FlushCache extends Command {
                 'optimize' => 'Proyecto Optimizado'
             ];
         } else {
-            $this->info(ArtisanUtilities::processLine("Definidos Los Comandos Compatibles En Su Sistema Operativo."));
+            $this->info(ArtisanUtilities::processLine("Definidos Los Comandos Compatibles En Su Sistema Operativo " . php_uname() . "." ));
             $commands = [
                 'cache' => 'Cache Eliminado del Proyecto Correctamente',
                 'config' => 'Cache de Configuración Eliminado del Proyecto Correctamente',
@@ -92,18 +93,30 @@ class FlushCache extends Command {
 
         /* Configuracion de Cache --- */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('CONFIGURACION DE CACHE'));
+        $this->info(ArtisanUtilities::headerLine('PROCESO 3 => CONFIGURACION DE CACHE'));
+        /* Eliminar Cache Actual */
         @ArtisanUtilities::deleteTMP();
+        $this->info(ArtisanUtilities::headerLine('Eliminación Configuración De Cache Actual Exitoso'));
         @ArtisanUtilities::ConfigCache();
         $this->info(ArtisanUtilities::processLine("Cache Actualizado Exitosamente"));
-
+        
         /* Configuracion de permisos */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('CONFIGURACION DE PERMISOS CARPETAS'));
+        $this->info(ArtisanUtilities::headerLine('PROCESO 4 => CONFIGURACIÓN DE PERMISOS CARPETAS (STORAGE Y PUBLIC)'));
+        /* Configuracion Carpeta Storage */
         @shell_exec('chmod -R 777 storage');
-        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Asignados A La Carpeta Storage"));
+        $this->info(ArtisanUtilities::processLine("Accedido Correctamente al Interprete de Comandos"));
+        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta /STORAGE"));
+        /* Configuracion Carpeta Public */
         @shell_exec('chmod -R 777 public');
-        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Asignados A La Carpeta Public"));
+        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta /PUBLIC"));
+
+        /* ReIniciando Composer */
+        $this->newLine();
+        $this->info(ArtisanUtilities::headerLine('PROCESO 4 => CONFIGURACIÓN AUTOLOAD COMPOSER'));
+        $this->line('Dependiendo la configuración del proyecto, esto puede demorar.');
+        @shell_exec('composer dump-autoload'); //
+        $this->info(ArtisanUtilities::processLine("Autoload Composer Regenerado"));
 
         /* Cierre */
         $this->newLine();

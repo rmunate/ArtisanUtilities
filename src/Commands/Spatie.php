@@ -102,7 +102,6 @@ class Spatie extends Command {
 
         }
         
-
         /* Cierre */
         $this->newLine();
         $this->info(ArtisanUtilities::$last);

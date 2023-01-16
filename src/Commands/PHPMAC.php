@@ -71,7 +71,7 @@ class PHPMAC extends Command {
                     $this->error('No se reconoce versiones de PHP en el Sistema.');
                 }
             } else {
-                $this->error('No se reconoce su version de Brew, no es posible ejecutar el comando.');
+                $this->error('No se reconoce su versión de Brew, no es posible ejecutar el comando.');
             }
         } else {
             $this->error('No cuenta con brew en su sistema, ingrese a https://brew.sh/ para conocer su instalación.');

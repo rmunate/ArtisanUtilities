@@ -12,7 +12,7 @@ class PHPVersion extends Command {
     protected $signature = 'PHPVersion';
 
     /* Descripción del Comando */
-    protected $description = 'Conocer Versión de PHP En USO.';
+    protected $description = 'Conocer La Versión de PHP En USO.';
 
     /* @return Void */
     public function handle(){

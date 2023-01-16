@@ -22,7 +22,7 @@ class ConfigCache extends Command {
 
         /* Configuracion de Cache --- */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('CONFIGURACION DE CACHE'));
+        $this->info(ArtisanUtilities::headerLine('CONFIGURACIÓN DE CACHE'));
 
         /* Eliminar Cache Actual */
         @ArtisanUtilities::deleteTMP();

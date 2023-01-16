@@ -24,7 +24,8 @@ class ChangePHP extends Command {
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('CAMBIAR VERSION DE PHP-FPM'));
 
-        $versiones = shell_exec('sudo update-alternatives --config php');
+        /* Imprimir versiones de PHP Disponibles */
+        $this->info(shell_exec('sudo update-alternatives --config php'));
         
         /* Cierre */
         $this->newLine();
