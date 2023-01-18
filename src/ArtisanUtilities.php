@@ -566,7 +566,7 @@ class ArtisanUtilities {
      * @return Void
      */
     public static function errorHidden(){
-        return error_reporting(0);
+        error_reporting(0);
     }
 
     /**
@@ -574,7 +574,7 @@ class ArtisanUtilities {
      * @return Void
      */
     public static function errorShow(){
-        return error_reporting(-1);
+        error_reporting(-1);
     }
 
     /**

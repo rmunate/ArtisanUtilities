@@ -10,12 +10,16 @@ Funciona para proyectos Laravel ^8.0 y PHP ^7.4
 
 -	Ejecute comandos rápidos desde la terminal y deje que el paquete trabaje por usted.
 -	Ejecute cargues y descargues de cambios en GIT con las mejores prácticas (Automatizadas).
--	Limpie su proyecto las veces que quiera con una sola línea (Limpie el cache, tokken vencidos, etc.).
--	Mejore el rendimiento del sistema con un simple comando. (Permisos a Public y Storage, Ajuste de los GitIgnore, etc.).
+-	Limpie su proyecto las veces que requiera con una sola línea (Limpie el cache, tokken vencidos, etc.).
+-	Mejore el rendimiento del sistema con un simple comando.
+-   Si trabaja en MAC OS, cambie la version de PHP con un comando.
+-   Ajuste el GitIgnore de su Proyecto.
+-   De Accesos a las carpetas de acuerdo al Estandar Laravel.
+-   Ideal para cargue a ambientes QA y Productivo (Linux)
 
 ## Instalación
 
-# Instalar con Composer.
+# Instalar a través de Composer.
 ```sh
 composer require rmunate/artisan-utilities
 ```
