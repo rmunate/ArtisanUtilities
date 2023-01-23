@@ -104,11 +104,19 @@ class FlushCache extends Command {
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('PROCESO 4 => CONFIGURACIÓN DE PERMISOS CARPETAS (STORAGE Y PUBLIC)'));
         /* Configuracion Carpeta Storage */
-        @shell_exec('chmod -R 777 storage');
+        if (str_contains(php_uname(), 'Windows')) {
+            chmod('storage', 0777);
+        } else {
+            @shell_exec('chmod -R 777 storage');
+        }
         $this->info(ArtisanUtilities::processLine("Accedido Correctamente al Interprete de Comandos"));
         $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta /STORAGE"));
         /* Configuracion Carpeta Public */
-        @shell_exec('chmod -R 777 public');
+        if (str_contains(php_uname(), 'Windows')) {
+            chmod('public', 0777);
+        } else {
+            @shell_exec('chmod -R 777 public');
+        }
         $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta /PUBLIC"));
 
         /* ReIniciando Composer */

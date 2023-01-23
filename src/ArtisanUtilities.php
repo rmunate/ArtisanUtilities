@@ -256,7 +256,11 @@ class ArtisanUtilities {
         }
 
         /* Permisos CHMOD */
-        @shell_exec('chmod -R 777 storage');
+        if (str_contains(php_uname(), 'Windows')) {
+            chmod('storage', 0777);
+        } else {
+            @shell_exec('chmod -R 777 storage');
+        }
 
         /* Despues de Crear la carpeta en caso de manejar clave rehacerla === Laravel Passport === */
         if ($oauth_public_key) {

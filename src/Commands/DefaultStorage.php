@@ -29,7 +29,11 @@ class DefaultStorage extends Command {
         $this->info(ArtisanUtilities::processLine("Log Laravel Del Proyecto Reiniciado Correctamente."));
 
         /* Configuracion Carpeta Storage */
-        @shell_exec('chmod -R 777 storage');
+        if (str_contains(php_uname(), 'Windows')) {
+            chmod('storage', 0777);
+        } else {
+            @shell_exec('chmod -R 777 storage');
+        }
         $this->info(ArtisanUtilities::processLine("Accedido Correctamente al Interprete de Comandos"));
         $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta /STORAGE"));
 
