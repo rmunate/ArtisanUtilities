@@ -658,6 +658,10 @@ class ArtisanUtilities {
             if (file_exists(base_path() . '/dist')) fwrite($gitignore, "/dist" . PHP_EOL);
             if (file_exists(base_path() . 'dist/')) fwrite($gitignore, "dist/" . PHP_EOL);
 
+            /* Composer LOCK */
+            if (file_exists(base_path() . '/composer.lock')) fwrite($gitignore, "/composer.lock" . PHP_EOL);
+            if (file_exists(base_path() . 'composer.lock')) fwrite($gitignore, "composer.lock" . PHP_EOL);
+
             /* Cerrar Archivo */
             fclose($gitignore);
         }
