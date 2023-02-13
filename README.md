@@ -79,7 +79,7 @@ php artisan AccessFolders
 
 
 ```console
-# Estrcutura Con Comentario
+# Estructura Con Comentario
 php artisan GitPush Rama --m=“Comentario commit”
 
 # Estructura Sin Comentario
