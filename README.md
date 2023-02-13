@@ -20,15 +20,15 @@ Funciona para proyectos Laravel ^8.0 y PHP ^7.4
 ## Instalación
 
 # Instalar a través de Composer.
-```sh
-composer require rmunate/artisan-utilities
+```console
+composer require rmunate/artisan-utilities 5.0.x-dev
 ```
 
 # (OPCIONAL) Presentar el Proveedor en el archivo config\app.php.
 
-```sh
+```php
 'providers' => [
-	//...
+	//...Providers Actuales
 	Rmunate\ArtisanUtilities\ArtisanUtilitiesServiceProvider::class,
 ],
 ```
@@ -37,7 +37,7 @@ composer require rmunate/artisan-utilities
 
 Podrá invocar el comando que requiera desde la terminal sobre la raiz principal del proyecto.
 
-```sh
+```console
 php artisan FlushCache
 ```
 
@@ -45,7 +45,7 @@ php artisan FlushCache
 | ----------- | ----------- |
 | `php artisan FlushCache` | Ejecute la limpieza total de su proyecto (cache, vistas, rutas, configuración, autenticación, eventos, colas, calendarios), recuerde estar conectado a la base de datos, ya que se ejecutará la limpieza de información “basura” desde las tablas por defecto de Laravel (Sin tocar información del sistema). Elimina los Logs del proyecto. Ajusta la configuración correcta de la carpeta Storage. Asigna los permisos que corresponden a las diferentes carpetas del Framework para garantizar el correcto funcionamiento. |
 
-```sh
+```console
 php artisan DefaultStorage
 ```
 
@@ -53,7 +53,7 @@ php artisan DefaultStorage
 | ----------- | ----------- |
 | `php artisan DefaultStorage` | Ajusta o crea la carpeta Storage del Framework de acuerdo al estándar. |
 
-```sh
+```console
 php artisan DefaultIgnore
 ```
 
@@ -61,7 +61,7 @@ php artisan DefaultIgnore
 | ----------- | ----------- |
 | `php artisan DefaultIgnore` | Ajusta el Git Ignore principal del proyecto, de acuerdo con el estándar del Framework, adicional valida si usa dependencias de NPM o carpetas del IDE para igualmente ignorarlas en los cargues. |
 
-```sh
+```console
 php artisan ConfigCache
 ```
 
@@ -69,7 +69,7 @@ php artisan ConfigCache
 | ----------- | ----------- |
 | `php artisan ConfigCache` | Ajusta el cache del proyecto, eliminando los archivos previos de configuración, creando los nuevos y regenerando el autoload de composer. |
 
-```sh
+```console
 php artisan AccessFolders
 ```
 
@@ -78,7 +78,7 @@ php artisan AccessFolders
 | `php artisan AccessFolders` | Ajusta los permisos de las carpetas del Proyecto. Brinda accesos de escritura a la carpeta Public y a la carpeta Storage. |
 
 
-```sh
+```console
 // Estrcutura Con Comentario
 php artisan GitPush Rama --m=“Comentario commit”
 
@@ -92,7 +92,7 @@ php artisan GitPush Rama
 
 ![image](https://user-images.githubusercontent.com/91748598/189487197-9054821b-8d2a-42fd-b9be-cf0b2a830779.png)
 
-```sh
+```console
 php artisan PHPVersion
 ```
 
@@ -100,7 +100,7 @@ php artisan PHPVersion
 | ----------- | ----------- |
 | `php artisan PHPVersion` | Retorna la versión en uso de PHP. |
 
-```sh
+```console
 php artisan mac-php
 ```
 
@@ -108,7 +108,7 @@ php artisan mac-php
 | ----------- | ----------- |
 | `php artisan mac-php` | (MAC OS) (Solo si se trabaja con HomeBrew) Lista las versiones de PHP disponibles instaladas en el MAC, permitiendo seleccionar cual configurar al sistema. |
 
-```sh
+```console
 php artisan fpm-php
 ```
 
@@ -116,7 +116,7 @@ php artisan fpm-php
 | ----------- | ----------- |
 | `php artisan fpm-php` | (LINUX UBUNTU PHP-FPM) Permite cambiar la versión de PHP configurada en el servidor Linux Ubunto. |
 
-```sh
+```console
 php artisan apache-restart
 ```
 
@@ -124,7 +124,7 @@ php artisan apache-restart
 | ----------- | ----------- |
 | `php artisan apache-restart` | (LINUX UBUNTU) Reiniciar el servicio de Apache en el servidor |
 
-```sh
+```console
 php artisan apache-restart-fpm
 ```
 
@@ -132,7 +132,7 @@ php artisan apache-restart-fpm
 | ----------- | ----------- |
 | `php artisan apache-restart-fpm` | (LINUX UBUNTU PHP-FPM) Reiniciar el servicio de Apache en el servidor Lunux Ubunto con FPM instalado. |
 
-```sh
+```console
 php artisan Spatie Show
 ```
 
@@ -140,7 +140,7 @@ php artisan Spatie Show
 | ----------- | ----------- |
 | `php artisan Spatie Show` | (Solo si se usa Spatie Permission) Lista los permisos creados en el sistema. |
 
-```sh
+```console
 php artisan Spatie Cache
 ```
 
@@ -148,7 +148,7 @@ php artisan Spatie Cache
 | ----------- | ----------- |
 | `php artisan Spatie Cache` | (Solo si se usa Spatie Permission) Limpia el cache de permisos de Spatie sobre todo el sistema. |
 
-```sh
+```console
 php artisan GitReset --log=“10”
 ```
 
@@ -156,7 +156,7 @@ php artisan GitReset --log=“10”
 | ----------- | ----------- |
 | `php artisan GitReset --log=“10”` | GitReset es el comando que usamos cuando queremos mover el repositorio a una confirmación anterior, descartando cualquier cambio realizado después de esa confirmación, este comando es el igual a (git reset), se debe ejecutar bajo la responsabilidad que amerita el regresar el proyecto descartando los cambios posteriores. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
 
-```sh
+```console
 php artisan GitRevert --log=“10”
 ```
 
