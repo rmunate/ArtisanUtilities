@@ -5,8 +5,8 @@ namespace Rmunate\ArtisanUtilities\Commands;
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
-
-class ConfigCache extends Command {
+class ConfigCache extends Command
+{
 
     /* Nombre del Comando */
     protected $signature = 'ConfigCache';
@@ -15,7 +15,8 @@ class ConfigCache extends Command {
     protected $description = 'Ajusta el cache del proyecto, eliminando los archivos previos de configuración, creando los nuevos y regenerando el autoload de composer.';
 
     /* @return Void */
-    public function handle(){
+    public function handle()
+    {
 
         /* Inicio de Comando */
         $this->line(ArtisanUtilities::$start);

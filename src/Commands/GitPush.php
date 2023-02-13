@@ -1,74 +1,37 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Comandos Personalizados Artisan
-|--------------------------------------------------------------------------
-| Clase de metodos estaticos para la ejecucion de los comenados externos.
-| Autor: Ing. Raul Mauricio Uñate Castro
-| V 1.0.0 : 20-12-2021 (Primer Release)
-| V 1.2.0 : 01-05-2022 (Segundo Release)
-| V 2.0.0 : 19-07-2022 (Comando Reescrito)
-| V 3.0.1 : 09-09-2022 (Comando Optimizado)
-| V 3.1.0 : 04-01-2023 (Comando Ajustado Para MacOS)
-|--------------------------------------------------------------------------
-|
-*/
-
 namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
-class GitPush extends Command {
+class GitPush extends Command
+{
 
-    /**
-     * Nombre del Comando
-     * @var string
-     */
+    /* Nombre del Comando */
     protected $signature = 'GitPush {rama} {--m=}';
 
-    /**
-     * Descripcion del proyecto
-     * @var string
-     */
+    /* Descripcion del proyecto */
     protected $description = 'Ejecutar Git Push al repositorio desde una rama puesta como parámetro, con la opción de ejecutar Pull de una Rama especifica creada en el repositorio.';
 
-    /**
-     * Mensaje que se retorna si la rama enviada como parametro no es la misma que esta en uso.
-     * @var string
-     */
+    /* Mensaje que se retorna si la rama enviada como parametro no es la misma que esta en uso. */
     private $msgErrorRama = 'La Rama Ingresada Como Parámetro No Es La Misma Sobre La Cual Se Está Trabajando, Por Favor Vuelva A Ejecutar El Comando Sobre La Rama Correcta.';
 
-    /**
-     * Mensaje en los casos donde el comentario personalizado es inferior a 2 caracteres.
-     * @var string
-     */
+    /* Mensaje en los casos donde el comentario personalizado es inferior a 2 caracteres. */
     private $msgComentarioInvalido = 'El comentario asociado tiene menos de 2 caracteres, por lo cual no se usará en el Cambio a cargar, Registraremos el nombre del(los) archivo(s) modificado(s) de existir, de lo contrario la hora y fecha.';
 
-    /**
-     * Comentario en pantalla en los casos donde no se ingrese un comentario personalizado.
-     * @var string
-     */
+    /* Comentario en pantalla en los casos donde no se ingrese un comentario personalizado. */
     private $commentDefault = 'Registraremos el nombre del(los) archivo(s) modificado(s) de existir, de lo contrario la hora y fecha, en la ausencia de un comentario personalizado';
 
-    /** 
-     * Mensaje de Pregunta si desea hacer pull
-     * @var string
-     */
+    /* Mensaje de Pregunta si desea hacer pull */
     private $msgConfirmPull = '¿Deseas Hacer Pull De Una Rama?';
 
-    /**
-     * Mensaje previo a seleccionar la rama.
-     * @var string
-     */
+    /* Mensaje previo a seleccionar la rama. */
     private $selectRama = 'Selecciona La Rama Desde La Cual Ejecutar El Pull';
 
-    /**
-     * Codigo del Comando
-     * @return Void
-     */
-    public function handle(){
+    /* Codigo del Comando */
+    public function handle()
+    {
 
         /* Inicio Comando */
         $this->line(ArtisanUtilities::$start);
@@ -77,7 +40,7 @@ class GitPush extends Command {
         $rama = $this->argument('rama');
 
         /* Si la rama enviada como argumento no es la misma en uso, se detendra el proceso */
-        if(!ArtisanUtilities::branchValidate($rama)){
+        if (!ArtisanUtilities::branchValidate($rama)) {
             return $this->error($this->msgErrorRama);
         };
 
@@ -163,7 +126,7 @@ class GitPush extends Command {
         $ramas = ArtisanUtilities::GitBranch();
 
         /* Generando un array de las ramas. */
-        $arrayRamas = explode('remotes/origin/' , $ramas);
+        $arrayRamas = explode('remotes/origin/', $ramas);
 
         /* De contar con dos ramas o más. */
         if (count($arrayRamas) > 1) {
@@ -181,11 +144,11 @@ class GitPush extends Command {
                 $this->info(ArtisanUtilities::headerLine('DESCARGAR CAMBIOS DE OTRO DESARROLLADOR!'));
                 $this->info('Este Proyecto Tiene Un Total De ' . $cantidadRamas . ' Rama(s) Remotas En GIT');
 
-                $preguntaPull = $this->choice($this->msgConfirmPull,['No', 'Si']);
+                $preguntaPull = $this->choice($this->msgConfirmPull, ['No', 'Si']);
 
                 if ($preguntaPull == 'Si') {
 
-                    $pullRama = $this->choice($this->selectRama,$ramasFinal);
+                    $pullRama = $this->choice($this->selectRama, $ramasFinal);
 
                     /* LLamado Comando FlushCache */
                     ArtisanUtilities::Call('FlushCache');

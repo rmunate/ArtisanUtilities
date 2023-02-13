@@ -3,29 +3,23 @@
 namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
-use Spatie\Permission\PermissionRegistrar;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
-use Symfony\Component\Console\Helper\TableCell;
-use Spatie\Permission\Contracts\Role as RoleContract;
-use Spatie\Permission\Contracts\Permission as PermissionContract;
 
-class PHPMAC extends Command {
+class PHPMAC extends Command
+{
 
-    /**
-     * Nombre del Comando
-     * @var string
-     */
+    /* Nombre del Comando */
     protected $signature = 'mac-php';
 
     /* Descripción del Comando */
     protected $description = 'Cambie su versión de PHP en MAC OS.';
 
     /* @return Void */
-    public function handle(){
+    public function handle()
+    {
 
         /* Inicio de Comando */
-        $this->line(ArtisanUtilities::$start); 
+        $this->line(ArtisanUtilities::$start);
 
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('LEYENDO VERSION DE HOMEBREW'));
@@ -46,18 +40,18 @@ class PHPMAC extends Command {
                     $php_versiones = [];
                     foreach ($versiones as $k => $v) {
                         if (str_contains($v, 'php/php@') && !str_contains($v, 'debug') && !str_contains($v, '8.3')) {
-                            $netsData = str_replace('shivammathur/php/','',$v);
+                            $netsData = str_replace('shivammathur/php/', '', $v);
                             array_push($php_versiones, $netsData);
                         }
                     }
                     if (count($php_versiones) > 0) {
 
-                        $version = $this->choice('Seleccione la Version de PHP a usar.',$php_versiones);
+                        $version = $this->choice('Seleccione la Version de PHP a usar.', $php_versiones);
 
-                        $cambio =  shell_exec("brew unlink php && brew link --overwrite --force $version");
-                        $apache =  shell_exec("brew services restart httpd");
+                        $cambio = shell_exec("brew unlink php && brew link --overwrite --force $version");
+                        $apache = shell_exec("brew services restart httpd");
                         $this->line("Servicio Apache Reiniciado Con Exito");
-                        
+
                         $this->line("--------------------------------------");
                         $this->line("---  VERSIÓN VIGENTE  ---");
                         $version = shell_exec('php -v');

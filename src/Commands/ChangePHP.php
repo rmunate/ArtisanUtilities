@@ -5,8 +5,8 @@ namespace Rmunate\ArtisanUtilities\Commands;
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
-
-class ChangePHP extends Command {
+class ChangePHP extends Command
+{
 
     /* Nombre del Comando */
     protected $signature = 'fpm-php';
@@ -15,7 +15,8 @@ class ChangePHP extends Command {
     protected $description = 'Cambie la version del PHP en uso en el servidor Linux Ubunto con FPM.';
 
     /* @return Void */
-    public function handle(){
+    public function handle()
+    {
 
         /* Inicio de Comando */
         $this->line(ArtisanUtilities::$start);
@@ -25,8 +26,8 @@ class ChangePHP extends Command {
         $this->info(ArtisanUtilities::headerLine('CAMBIAR VERSION DE PHP-FPM'));
 
         /* Imprimir versiones de PHP Disponibles */
-        $this->info(shell_exec('sudo update-alternatives --config php'));
-        
+        @shell_exec('sudo update-alternatives --config php');
+
         /* Cierre */
         $this->newLine();
         $this->info(ArtisanUtilities::$last);

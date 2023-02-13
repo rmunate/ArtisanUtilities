@@ -1,52 +1,28 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Comandos Personalizados Artisan
-|--------------------------------------------------------------------------
-| Clase de metodos estaticos para la ejecucion de los comenados externos.
-| Autor: Ing. Raul Mauricio Uñate Castro
-| V 1.0.0 : 20-12-2021 (Primer Release)
-| V 1.2.0 : 01-05-2022 (Segundo Release)
-| V 2.0.0 : 19-07-2022 (Comando Reescrito)
-| V 3.0.1 : 09-09-2022 (Comando Optimizado)
-| V 3.1.0 : 04-01-2023 (Comando Ajustado Para MacOS)
-|--------------------------------------------------------------------------
-|
-*/
-
 namespace Rmunate\ArtisanUtilities\Commands;
 
-use Artisan;
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
-class GitRevert extends Command{
+class GitRevert extends Command
+{
 
-    /**
-     * Nombre del Comando
-     * @var string
-     */ 
+    /* Nombre del Comando */
     protected $signature = 'GitRevert {--log=}';
 
-    /**
-     * Descripcion del proyecto
-     * @var string
-     */
+    /* Descripcion del proyecto */
     protected $description = 'Reversar Cambios en el Proyecto';
 
-    /**
-     * Constructor
-     */
-    public function __construct(){
+    /* Constructor */
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    /**
-     * Codigo del Comando
-     * @return Void
-     */
-    public function handle(){
+    /* Codigo del Comando */
+    public function handle()
+    {
 
         /* Inicio Comando */
         $this->line(ArtisanUtilities::$start);
@@ -120,10 +96,10 @@ class GitRevert extends Command{
         $arrayShowCommits = ArtisanUtilities::GitShow($cambio);
 
         /* Extraer los tres datos relevantes del cambio
-        * Consecutivo
-        * Fecha
-        * Autor
-        */
+         * Consecutivo
+         * Fecha
+         * Autor
+         */
         $salidaShowCommits = array_slice($arrayShowCommits, 0, 3);
 
         $this->line('Detalles Del Commit Seleccionado:');

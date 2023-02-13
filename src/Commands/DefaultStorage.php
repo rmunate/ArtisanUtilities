@@ -5,8 +5,8 @@ namespace Rmunate\ArtisanUtilities\Commands;
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
-
-class DefaultStorage extends Command {
+class DefaultStorage extends Command
+{
 
     /* Nombre del Comando */
     protected $signature = 'DefaultStorage';
@@ -15,7 +15,8 @@ class DefaultStorage extends Command {
     protected $description = 'Ajusta o crea la carpeta Storage del Framework de acuerdo al estándar.';
 
     /* @return Void */
-    public function handle(){
+    public function handle()
+    {
 
         /* Inicio de Comando */
         $this->line(ArtisanUtilities::$start);
@@ -30,7 +31,7 @@ class DefaultStorage extends Command {
 
         /* Configuracion Carpeta Storage */
         if (str_contains(php_uname(), 'Windows')) {
-            chmod('storage', 0777);
+            @chmod('storage', 0777);
         } else {
             @shell_exec('chmod -R 777 storage');
         }

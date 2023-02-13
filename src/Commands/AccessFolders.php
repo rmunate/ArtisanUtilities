@@ -1,27 +1,12 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Comandos Personalizados Artisan
-|--------------------------------------------------------------------------
-| Clase de metodos estaticos para la ejecucion de los comenados externos.
-| Autor: Ing. Raul Mauricio Uñate Castro
-| V 1.0.0 : 20-12-2021 (Primer Release)
-| V 1.2.0 : 01-05-2022 (Segundo Release)
-| V 2.0.0 : 19-07-2022 (Comando Reescrito)
-| V 3.0.1 : 09-09-2022 (Comando Optimizado)
-| V 3.1.0 : 04-01-2023 (Comando Ajustado Para MacOS)
-|--------------------------------------------------------------------------
-|
-*/
-
 namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
-
-class AccessFolders extends Command {
+class AccessFolders extends Command
+{
 
     /* Nombre del Comando */
     protected $signature = 'AccessFolders';
@@ -30,7 +15,8 @@ class AccessFolders extends Command {
     protected $description = 'Ajusta los permisos de las carpetas del Proyecto. Brinda accesos de escritura a la carpeta Public y a la carpeta Storage.';
 
     /* @return Void */
-    public function handle(){
+    public function handle()
+    {
 
         /* Inicio de Comando */
         $this->line(ArtisanUtilities::$start);
@@ -41,7 +27,7 @@ class AccessFolders extends Command {
 
         /* Configuracion Carpeta Storage */
         if (str_contains(php_uname(), 'Windows')) {
-            chmod('storage', 0777);
+            @chmod('storage', 0777);
         } else {
             @shell_exec('chmod -R 777 storage');
         }
@@ -50,7 +36,7 @@ class AccessFolders extends Command {
 
         /* Configuracion Carpeta Public */
         if (str_contains(php_uname(), 'Windows')) {
-            chmod('public', 0777);
+            @chmod('public', 0777);
         } else {
             @shell_exec('chmod -R 777 public');
         }

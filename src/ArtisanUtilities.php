@@ -257,8 +257,10 @@ class ArtisanUtilities {
 
         /* Permisos CHMOD */
         if (str_contains(php_uname(), 'Windows')) {
+            // Si Es Windows
             chmod('storage', 0777);
         } else {
+            // Si Es Otro Sistema
             @shell_exec('chmod -R 777 storage');
         }
 
@@ -665,6 +667,10 @@ class ArtisanUtilities {
             /* Composer LOCK */
             if (file_exists(base_path() . '/composer.lock')) fwrite($gitignore, "/composer.lock" . PHP_EOL);
             if (file_exists(base_path() . 'composer.lock')) fwrite($gitignore, "composer.lock" . PHP_EOL);
+
+            /* Archivos DS Mac */
+            if (file_exists(base_path() . '/.DS_Store')) fwrite($gitignore, "/.DS_Store" . PHP_EOL);
+            if (file_exists(base_path() . '.DS_Store')) fwrite($gitignore, ".DS_Store" . PHP_EOL);
 
             /* Cerrar Archivo */
             fclose($gitignore);

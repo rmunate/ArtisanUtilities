@@ -5,8 +5,8 @@ namespace Rmunate\ArtisanUtilities\Commands;
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
-
-class PHPVersion extends Command {
+class PHPVersion extends Command
+{
 
     /* Nombre del Comando */
     protected $signature = 'PHPVersion';
@@ -15,7 +15,8 @@ class PHPVersion extends Command {
     protected $description = 'Conocer La Versión de PHP En USO.';
 
     /* @return Void */
-    public function handle(){
+    public function handle()
+    {
 
         /* Inicio de Comando */
         $this->line(ArtisanUtilities::$start);
@@ -26,7 +27,7 @@ class PHPVersion extends Command {
 
         $version = shell_exec('php -v');
         $this->info($version);
-        
+
         /* Cierre */
         $this->newLine();
         $this->info(ArtisanUtilities::$last);

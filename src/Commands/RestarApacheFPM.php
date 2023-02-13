@@ -5,8 +5,8 @@ namespace Rmunate\ArtisanUtilities\Commands;
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
 
-
-class RestarApacheFPM extends Command {
+class RestarApacheFPM extends Command
+{
 
     /* Nombre del Comando */
     protected $signature = 'apache-restart-fpm';
@@ -15,7 +15,8 @@ class RestarApacheFPM extends Command {
     protected $description = 'Reiniciar Apache en Linux Ubunto.';
 
     /* @return Void */
-    public function handle(){
+    public function handle()
+    {
 
         /* Inicio de Comando */
         $this->line(ArtisanUtilities::$start);
@@ -24,8 +25,8 @@ class RestarApacheFPM extends Command {
         $this->newLine();
         $this->info(ArtisanUtilities::headerLine('REINICIANDO APACHE FPM'));
         $this->info(ArtisanUtilities::processLine("Invocando el comando => sudo systemctl restart apache2"));
-        $reset_apache = shell_exec('sudo systemctl restart apache2');
-        
+        @shell_exec('sudo systemctl restart apache2');
+
         /* Cierre */
         $this->newLine();
         $this->info(ArtisanUtilities::$last);

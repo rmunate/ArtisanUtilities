@@ -3,35 +3,33 @@
 namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
-use Spatie\Permission\PermissionRegistrar;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;
-use Symfony\Component\Console\Helper\TableCell;
-use Spatie\Permission\Contracts\Role as RoleContract;
 use Spatie\Permission\Contracts\Permission as PermissionContract;
+use Spatie\Permission\Contracts\Role as RoleContract;
+use Spatie\Permission\PermissionRegistrar;
+use Symfony\Component\Console\Helper\TableCell;
 
-class Spatie extends Command {
+class Spatie extends Command
+{
 
-    /**
-     * Nombre del Comando
-     * @var string
-     */
+    /* Nombre del Comando */
     protected $signature = 'Spatie {action}';
 
     /* Descripción del Comando */
     protected $description = 'Comandos Spatie Show(Listar Comandos) Cache(Limpiar Cache Permisos).';
 
     /* @return Void */
-    public function handle(){
+    public function handle()
+    {
 
         /* Inicio de Comando */
         $this->line(ArtisanUtilities::$start);
-        
+
         /* Argumento Comando */
         $action = $this->argument('action');
 
         if ($action == 'Show') {
-            
+
             $permissionClass = app(PermissionContract::class);
             $roleClass = app(RoleContract::class);
             $team_key = config('permission.column_names.team_foreign_key');
@@ -52,8 +50,8 @@ class Spatie extends Command {
                         $q->orderBy($team_key);
                     })
                     ->orderBy('name')->get()->mapWithKeys(function ($role) use ($team_key) {
-                        return [$role->name.'_'.($role->$team_key ?: '') => ['permissions' => $role->permissions->pluck('id'), $team_key => $role->$team_key ]];
-                    });
+                    return [$role->name . '_' . ($role->$team_key ?: '') => ['permissions' => $role->permissions->pluck('id'), $team_key => $role->$team_key]];
+                });
 
                 $permissions = $permissionClass::whereGuardName($guard)->orderBy('name')->pluck('name', 'id');
 
@@ -65,7 +63,7 @@ class Spatie extends Command {
 
                 if (config('permission.teams')) {
                     $teams = $roles->groupBy($team_key)->values()->map(function ($group, $id) {
-                        return new TableCell('Team ID: '.($id ?: 'NULL'), ['colspan' => $group->count()]);
+                        return new TableCell('Team ID: ' . ($id ?: 'NULL'), ['colspan' => $group->count()]);
                     });
                 }
 
@@ -77,12 +75,12 @@ class Spatie extends Command {
 
                             return $name[0];
                         })
-                        ->prepend('')->toArray(),
+                            ->prepend('')->toArray(),
                     ]),
                     $body->toArray(),
                     $style
                 );
-                
+
             }
         } else if ($action == 'Cache') {
 
@@ -101,7 +99,7 @@ class Spatie extends Command {
             $this->info('php artisan Spatie Cache [Use este comando para limpiar el Cache de Permisos]');
 
         }
-        
+
         /* Cierre */
         $this->newLine();
         $this->info(ArtisanUtilities::$last);
