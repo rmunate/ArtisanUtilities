@@ -79,10 +79,10 @@ php artisan AccessFolders
 
 
 ```console
-// Estrcutura Con Comentario
+# Estrcutura Con Comentario
 php artisan GitPush Rama --m=“Comentario commit”
 
-//Estructura Sin Comentario
+# Estructura Sin Comentario
 php artisan GitPush Rama 
 ```
 
@@ -167,5 +167,4 @@ php artisan GitRevert --log=“10”
 ## Desarrollador
 
 - Ingeniero, Raúl Mauricio Uñate Castro
-- raulmauriciounate@gmail.com
-- (Recomendaciones y sugerencias por correo electrónico)
+- Email: raulmauriciounate@gmail.com
