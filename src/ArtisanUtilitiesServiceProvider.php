@@ -1,14 +1,8 @@
 <?php
 
-namespace Rmunate\ArtisanUtilities;
-use Illuminate\Support\ServiceProvider;
+namespace Rmunate\ArtisanUtilities; 
 
-/*
-|--------------------------------------------------------------------------
-| Comandos Personalizados Artisan
-| Autor: Ing. Raul Mauricio Uñate Castro
-|--------------------------------------------------------------------------
-*/
+use Illuminate\Support\ServiceProvider;
 
 class ArtisanUtilitiesServiceProvider extends ServiceProvider
 {

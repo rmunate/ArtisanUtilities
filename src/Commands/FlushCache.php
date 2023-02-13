@@ -9,7 +9,7 @@ class FlushCache extends Command
 {
 
     /* Nombre del Comando */
-    protected $signature = 'FlushCache';
+    protected $signature = 'FlushCache'; 
 
     /* Descripción del Comando */
     protected $description = 'Ejecute la limpieza total de su proyecto (cache, vistas, rutas, configuración, autenticación, eventos, colas, calendarios), recuerde estar conectado a la base de datos, ya que se ejecutará la limpieza de información “basura” desde las tablas por defecto de Laravel (Sin tocar información del sistema). Elimina los Logs del proyecto. Ajusta la configuración correcta de la carpeta Storage. Asigna los permisos que corresponden a las diferentes carpetas del Framework para garantizar el correcto funcionamiento.';

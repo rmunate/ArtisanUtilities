@@ -1,6 +1,6 @@
 <?php
 
-namespace Rmunate\ArtisanUtilities;
+namespace Rmunate\ArtisanUtilities; 
 
 use Illuminate\Support\Facades\Artisan;
 

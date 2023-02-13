@@ -1,6 +1,6 @@
 <?php
 
-namespace Rmunate\ArtisanUtilities\Commands;
+namespace Rmunate\ArtisanUtilities\Commands; 
 
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\ArtisanUtilities;

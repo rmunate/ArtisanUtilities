@@ -3,7 +3,7 @@
 namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities;
+use Rmunate\ArtisanUtilities\ArtisanUtilities; 
 
 class ConfigCache extends Command
 {
