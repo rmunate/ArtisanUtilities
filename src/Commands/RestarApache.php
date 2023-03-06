@@ -3,7 +3,8 @@
 namespace Rmunate\ArtisanUtilities\Commands; 
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities;
+use Rmunate\ArtisanUtilities\Messages;
+use Rmunate\ArtisanUtilities\Utilities;
 
 
 class RestarApache extends Command {
@@ -17,20 +18,34 @@ class RestarApache extends Command {
     /* @return Void */
     public function handle(){
 
-        /* Inicio de Comando */
-        $this->line(ArtisanUtilities::$start);
+        /* Inicio Comando */
+        $bar = $this->output->createProgressBar(100);
+        Utilities::errorHidden();
+        $this->comment(Messages::start());
 
         /* Ajuste GitIgnore Principal del Proyecto */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('REINICIANDO APACHE'));
-        $this->info(ArtisanUtilities::processLine("Invocando el comando => sudo restart apache2"));
-        @shell_exec('sudo restart apache2');
+        $this->info('REINICIANDO APACHE');
+        $exec = @shell_exec('sudo restart apache2');
+        
+        if (str_contains($exec, 'found') OR empty($exec)) {
+            $this->error('Imposible Reiniciar, consulte como ejecutar el proceso en su Sistema Operativo. Este Comando Es Para Linux Ubuntu.');
+            return;
+        } else {
+            $this->question('Apache Reiniciado Con Exito.');
+        }
         
         /* Cierre */
         $this->newLine();
-        $this->info(ArtisanUtilities::$last);
+        $bar->finish();
         $this->newLine();
-        $this->line(ArtisanUtilities::$end);
+        $this->comment(Messages::success());
+        if(Utilities::existNotify()){
+            $this->notify(Messages::alertTittle(),Messages::alertBody());
+        }
+
+        /* Activacion Errores */
+        Utilities::errorShow();
 
     }
 }

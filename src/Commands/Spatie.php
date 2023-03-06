@@ -3,11 +3,12 @@
 namespace Rmunate\ArtisanUtilities\Commands; 
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities;
-use Spatie\Permission\Contracts\Permission as PermissionContract;
-use Spatie\Permission\Contracts\Role as RoleContract;
+use Rmunate\ArtisanUtilities\Messages;
+use Rmunate\ArtisanUtilities\Utilities;
 use Spatie\Permission\PermissionRegistrar;
 use Symfony\Component\Console\Helper\TableCell;
+use Spatie\Permission\Contracts\Role as RoleContract;
+use Spatie\Permission\Contracts\Permission as PermissionContract;
 
 class Spatie extends Command
 {
@@ -22,8 +23,16 @@ class Spatie extends Command
     public function handle()
     {
 
-        /* Inicio de Comando */
-        $this->line(ArtisanUtilities::$start);
+        /* Inicio Comando */
+        $bar = $this->output->createProgressBar(100);
+        Utilities::errorHidden();
+        $this->comment(Messages::start());
+
+        /* Validar Que Tenga Spatie Permission */
+        if (!Utilities::existLaravelPermission()) {
+            $this->error('El Proyecto No Cuenta Con Laravel Permission Instalado, Para Instalarlo Corra El Comando: "composer require spatie/laravel-permission"');
+            return;
+        }
 
         /* Argumento Comando */
         $action = $this->argument('action');
@@ -84,27 +93,35 @@ class Spatie extends Command
             }
         } else if ($action == 'Cache') {
 
-            if (app(PermissionRegistrar::class)->forgetCachedPermissions()) {
+            if (app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions()) {
                 $this->newLine();
-                $this->info('Cache De Permisos Reiniciados.');
+                $this->question('Cache De Permisos De Spatie Reiniciados.');
             } else {
                 $this->newLine();
-                $this->error('No se logró Reiniciar el Cache.');
+                $this->error('No se logró Reiniciar el Cache De Permisos.');
+                return;
             }
 
         } else {
 
             $this->error('Comando No Valido');
-            $this->info('php artisan Spatie Show [Use este comando para listar los permisos actuales]');
-            $this->info('php artisan Spatie Cache [Use este comando para limpiar el Cache de Permisos]');
+            $this->info('php artisan Spatie Show : "Use este comando para listar los permisos actuales"');
+            $this->info('php artisan Spatie Cache : "Use este comando para limpiar la Cache de Permisos"');
+            return;
 
         }
 
         /* Cierre */
         $this->newLine();
-        $this->info(ArtisanUtilities::$last);
+        $bar->finish();
         $this->newLine();
-        $this->line(ArtisanUtilities::$end);
+        $this->comment(Messages::success());
+        if(Utilities::existNotify()){
+            $this->notify(Messages::alertTittle(),Messages::alertBody());
+        }
+
+        /* Activacion Errores */
+        Utilities::errorShow();
 
     }
 }

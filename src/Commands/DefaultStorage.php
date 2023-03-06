@@ -3,7 +3,9 @@
 namespace Rmunate\ArtisanUtilities\Commands; 
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities;
+use Rmunate\ArtisanUtilities\Storage;
+use Rmunate\ArtisanUtilities\Messages;
+use Rmunate\ArtisanUtilities\Utilities;
 
 class DefaultStorage extends Command
 {
@@ -18,33 +20,33 @@ class DefaultStorage extends Command
     public function handle()
     {
 
-        /* Inicio de Comando */
-        $this->line(ArtisanUtilities::$start);
+        /* Inicio Comando */
+        $bar = $this->output->createProgressBar(100);
+        Utilities::errorHidden();
+        $this->comment(Messages::start());
 
         /* Ajuste Storage & Logs */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('AJUSTE ESTRUCTURA CARPETA STORAGE'));
-        $this->info(ArtisanUtilities::processLine("Iniciando Reajuste Carpete Storage."));
-        @ArtisanUtilities::DefaultStorage();
-        $this->info(ArtisanUtilities::processLine("Ajuste Estructura Carpeta Storage Completa."));
-        $this->info(ArtisanUtilities::processLine("Log Laravel Del Proyecto Reiniciado Correctamente."));
+        $this->info('Inicio Ajuste Estructura Carpeta Storage');
+        Storage::default();
+        $this->question("Ajuste Estructura Carpeta Storage Completa.");
+        $this->question("Log Laravel Del Proyecto Reiniciado Correctamente.");
 
         /* Configuracion Carpeta Storage */
-        if (str_contains(php_uname(), 'Windows')) {
-            @chmod('storage', 0777);
-        } else {
-            @shell_exec('chmod -R 777 storage');
-        }
-        $this->info(ArtisanUtilities::processLine("Accedido Correctamente al Interprete de Comandos"));
-        $this->info(ArtisanUtilities::processLine("Permisos De Escritura Y Lectura Asignados A La Carpeta /STORAGE"));
+        Utilities::chmod('storage');
+        $this->info("Permisos De Escritura Y Lectura Asignados A La Carpeta Storage");
 
         /* Cierre */
         $this->newLine();
-        $this->info(ArtisanUtilities::$last);
+        $bar->finish();
         $this->newLine();
-        $this->line(ArtisanUtilities::$end);
+        $this->comment(Messages::success());
+        if(Utilities::existNotify()){
+            $this->notify(Messages::alertTittle(),Messages::alertBody());
+        }
 
         /* Activacion Errores */
-        ArtisanUtilities::errorShow();
+        Utilities::errorShow();
+
     }
 }

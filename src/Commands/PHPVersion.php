@@ -3,13 +3,14 @@
 namespace Rmunate\ArtisanUtilities\Commands; 
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities;
+use Rmunate\ArtisanUtilities\Messages;
+use Rmunate\ArtisanUtilities\Utilities;
 
 class PHPVersion extends Command
 {
 
     /* Nombre del Comando */
-    protected $signature = 'PHPVersion';
+    protected $signature = 'php-version';
 
     /* Descripción del Comando */
     protected $description = 'Conocer La Versión de PHP En USO.';
@@ -18,21 +19,28 @@ class PHPVersion extends Command
     public function handle()
     {
 
-        /* Inicio de Comando */
-        $this->line(ArtisanUtilities::$start);
+        /* Inicio Comando */
+        $bar = $this->output->createProgressBar(100);
+        Utilities::errorHidden();
+        $this->comment(Messages::start());
 
-        /* Ajuste GitIgnore Principal del Proyecto */
+        /* Imprimir Version de PHP */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('VERSION DE PHP EN USO'));
-
+        $this->question('VERSION DE PHP EN USO');
         $version = shell_exec('php -v');
-        $this->info($version);
+        $this->question($version);
 
         /* Cierre */
         $this->newLine();
-        $this->info(ArtisanUtilities::$last);
+        $bar->finish();
         $this->newLine();
-        $this->line(ArtisanUtilities::$end);
+        $this->comment(Messages::success());
+        if(Utilities::existNotify()){
+            $this->notify(Messages::alertTittle(),Messages::alertBody());
+        }
+
+        /* Activacion Errores */
+        Utilities::errorShow();
 
     }
 }

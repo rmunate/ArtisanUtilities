@@ -3,7 +3,9 @@
 namespace Rmunate\ArtisanUtilities\Commands; 
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities;
+use Rmunate\ArtisanUtilities\Ignore;
+use Rmunate\ArtisanUtilities\Messages;
+use Rmunate\ArtisanUtilities\Utilities;
 
 class DefaultIgnore extends Command
 {
@@ -18,21 +20,29 @@ class DefaultIgnore extends Command
     public function handle()
     {
 
-        /* Inicio de Comando */
-        $this->line(ArtisanUtilities::$start);
+        /* Inicio Comando */
+        $bar = $this->output->createProgressBar(100);
+        Utilities::errorHidden();
+        $this->comment(Messages::start());
 
         /* Ajuste GitIgnore Principal del Proyecto */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('Ajustando .gitignore - Proyecto'));
-        @ArtisanUtilities::gitIgnoreBase();
-        $this->info(ArtisanUtilities::processLine("Archivo Principal de GitIgnore Ajustado al Estandar."));
-        $this->info(ArtisanUtilities::processLine("Archivo Publicado => /.gitignore"));
+        $this->info('Ajustando .gitignore');
+        Ignore::create();
+        $this->info("Archivo Principal de GitIgnore Ajustado al Estandar.");
+        $this->question("Archivo Publicado => /.gitignore");
 
         /* Cierre */
         $this->newLine();
-        $this->info(ArtisanUtilities::$last);
+        $bar->finish();
         $this->newLine();
-        $this->line(ArtisanUtilities::$end);
+        $this->comment(Messages::success());
+        if(Utilities::existNotify()){
+            $this->notify(Messages::alertTittle(),Messages::alertBody());
+        }
+
+        /* Activacion Errores */
+        Utilities::errorShow();
 
     }
 }

@@ -3,79 +3,110 @@
 namespace Rmunate\ArtisanUtilities\Commands; 
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities;
+use Rmunate\ArtisanUtilities\Messages;
+use Rmunate\ArtisanUtilities\Utilities;
 
 class PHPMAC extends Command
 {
 
     /* Nombre del Comando */
-    protected $signature = 'mac-php';
+    protected $signature = 'php-mac';
 
     /* Descripción del Comando */
     protected $description = 'Cambie su versión de PHP en MAC OS.';
+
+    /* Constantes */
+    const READ_HOMEBREW = 'Leyendo Versión De HomeBrew';
+    const READ_PHP = 'Leyendo Versiones De PHP Instaladas En Su MacOS';
+    const ERROR_BREW = 'No cuenta con brew en su sistema o no se reconoce su versión, Manual: https://brew.sh/';
+    const ERROR_PHP = 'No se reconoce versiones de PHP en el Sistema.';
+    const APACHE_RESTART = 'Servicio Apache Reiniciado Con Exito';
 
     /* @return Void */
     public function handle()
     {
 
-        /* Inicio de Comando */
-        $this->line(ArtisanUtilities::$start);
+        /* Inicio Comando */
+        $bar = $this->output->createProgressBar(100);
+        Utilities::errorHidden();
+        $this->comment(Messages::start());
 
-        $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('LEYENDO VERSION DE HOMEBREW'));
         /* Validar que se trabeje con Brew */
+        $this->newLine();
+        $this->info(Self::READ_HOMEBREW);
         $brew = shell_exec('brew -v');
 
         if (!empty($brew) && count(explode("\n", $brew)) > 0) {
+
             $brew = explode("\n", $brew);
+
             if (str_contains($brew[0], 'Homebrew')) {
 
-                $this->line(ArtisanUtilities::processLine($brew[0]));
+                $this->line($brew[0]);
 
                 /* Leer Versiones Por Brew */
-                $this->info(ArtisanUtilities::headerLine('LEYENDO VERSIONES DE PHP'));
+                $this->info(Self::READ_PHP);
+
                 $versiones = shell_exec('brew search php');
+
                 if (count(explode("\n", $versiones)) > 0) {
+
                     $versiones = explode("\n", $versiones);
                     $php_versiones = [];
+
                     foreach ($versiones as $k => $v) {
                         if (str_contains($v, 'php/php@') && !str_contains($v, 'debug') && !str_contains($v, '8.3')) {
                             $netsData = str_replace('shivammathur/php/', '', $v);
                             array_push($php_versiones, $netsData);
                         }
                     }
+
                     if (count($php_versiones) > 0) {
 
-                        $version = $this->choice('Seleccione la Version de PHP a usar.', $php_versiones);
+                        $version = null;
+                        while ($version == null) {
 
-                        $cambio = shell_exec("brew unlink php && brew link --overwrite --force $version");
-                        $apache = shell_exec("brew services restart httpd");
-                        $this->line("Servicio Apache Reiniciado Con Exito");
+                            $version = $this->choice('Seleccione la Version de PHP a usar.', $php_versiones);
 
-                        $this->line("--------------------------------------");
-                        $this->line("---  VERSIÓN VIGENTE  ---");
+                            if (!empty($version)) {
+                                $cambio = shell_exec("brew unlink php && brew link --overwrite --force $version");
+                                $apache = shell_exec("brew services restart httpd");
+                                $this->question(Self::APACHE_RESTART);
+                            }
+
+                        }
+                        
                         $version = shell_exec('php -v');
-                        $this->info($version);
-                        $this->line("--------------------------------------");
+                        $this->question('VERSIÓN VIGENTE PHP: ' .$version);
 
                     } else {
-                        $this->error('No se reconoce versiones de PHP en el Sistema.');
+                        $this->error(Self::ERROR_PHP);
+                        return;
                     }
                 } else {
-                    $this->error('No se reconoce versiones de PHP en el Sistema.');
+                    $this->error(Self::ERROR_PHP);
+                    return;
                 }
             } else {
-                $this->error('No se reconoce su versión de Brew, no es posible ejecutar el comando.');
+                $this->error(Self::ERROR_BREW);
+                return;
             }
         } else {
-            $this->error('No cuenta con brew en su sistema, ingrese a https://brew.sh/ para conocer su instalación.');
+            $this->error(Self::ERROR_BREW);
+            return;
         }
 
         /* Cierre */
         $this->newLine();
-        $this->info(ArtisanUtilities::$last);
+        $bar->finish();
         $this->newLine();
-        $this->line(ArtisanUtilities::$end);
+        $this->comment(Messages::success());
+        if(Utilities::existNotify()){
+            $this->notify(Messages::alertTittle(),Messages::alertBody());
+        }
+
+        /* Activacion Errores */
+        Utilities::errorShow();
 
     }
 }

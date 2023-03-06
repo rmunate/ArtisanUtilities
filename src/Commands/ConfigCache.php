@@ -3,7 +3,9 @@
 namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities; 
+use Rmunate\ArtisanUtilities\Cache;
+use Rmunate\ArtisanUtilities\Messages;
+use Rmunate\ArtisanUtilities\Utilities;
 
 class ConfigCache extends Command
 {
@@ -18,28 +20,38 @@ class ConfigCache extends Command
     public function handle()
     {
 
-        /* Inicio de Comando */
-        $this->line(ArtisanUtilities::$start);
+        /* Inicio Comando */
+        $bar = $this->output->createProgressBar(100);
+        Utilities::errorHidden();
+        $this->comment(Messages::start());
 
         /* Configuracion de Cache --- */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('CONFIGURACIÓN DE CACHE'));
+        $this->info('Configuración Total De Cache');
 
         /* Eliminar Cache Actual */
-        @ArtisanUtilities::deleteTMP();
-        $this->info(ArtisanUtilities::headerLine('Eliminación Configuración De Cache Actual Exitoso'));
+        Cache::deleteTMP();
+        $this->newLine();
+        $this->info('Eliminación Configuración De Cache Actual Exitoso');
 
-        @ArtisanUtilities::ConfigCache();
-        $this->info(ArtisanUtilities::processLine("Cache Actualizado Exitosamente"));
+        /* Configurar Cache */
+        Cache::artisan();
+        $this->question("Cache Actualizado Exitosamente");
 
         /* ReIniciando Composer */
-        @shell_exec('composer dump-autoload'); //
-        $this->info(ArtisanUtilities::processLine("Autoload Composer Regenerado"));
+        $composer = @shell_exec('composer dump-autoload');
+        $this->question("Autoload Composer Regenerado");
 
         /* Cierre */
         $this->newLine();
-        $this->info(ArtisanUtilities::$last);
+        $bar->finish();
         $this->newLine();
-        $this->line(ArtisanUtilities::$end);
+        $this->comment(Messages::success());
+        if(Utilities::existNotify()){
+            $this->notify(Messages::alertTittle(),Messages::alertBody());
+        }
+
+        /* Activacion Errores */
+        Utilities::errorShow();
     }
 }

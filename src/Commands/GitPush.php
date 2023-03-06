@@ -3,194 +3,181 @@
 namespace Rmunate\ArtisanUtilities\Commands; 
 
 use Illuminate\Console\Command;
-use Rmunate\ArtisanUtilities\ArtisanUtilities;
+use Rmunate\ArtisanUtilities\Git;
+use Rmunate\ArtisanUtilities\Messages;
+use Illuminate\Support\Facades\Artisan;
+use Rmunate\ArtisanUtilities\Utilities;
 
 class GitPush extends Command
 {
-
     /* Nombre del Comando */
     protected $signature = 'GitPush {rama} {--m=}';
-
+    
     /* Descripcion del proyecto */
     protected $description = 'Ejecutar Git Push al repositorio desde una rama puesta como parámetro, con la opción de ejecutar Pull de una Rama especifica creada en el repositorio.';
+    
+    /* Contantes (Mensajes) */
+    const INVALID_COMMENT = 'El comentario asociado tiene menos de 2 caracteres, por lo cual no se usará en el Cambio a cargar, Registraremos el nombre del(los) archivo(s) modificado(s) de existir cambios.';
 
-    /* Mensaje que se retorna si la rama enviada como parametro no es la misma que esta en uso. */
-    private $msgErrorRama = 'La Rama Ingresada Como Parámetro No Es La Misma Sobre La Cual Se Está Trabajando, Por Favor Vuelva A Ejecutar El Comando Sobre La Rama Correcta.';
+    const MESSAGE_DEFAULT = 'Registraremos el nombre del(los) archivo(s) modificado(s) de existir cambios, en la ausencia de un comentario personalizado';
 
-    /* Mensaje en los casos donde el comentario personalizado es inferior a 2 caracteres. */
-    private $msgComentarioInvalido = 'El comentario asociado tiene menos de 2 caracteres, por lo cual no se usará en el Cambio a cargar, Registraremos el nombre del(los) archivo(s) modificado(s) de existir, de lo contrario la hora y fecha.';
+    const QUESTION_PULL = '¿Deseas Hacer Pull De Una Rama?';
 
-    /* Comentario en pantalla en los casos donde no se ingrese un comentario personalizado. */
-    private $commentDefault = 'Registraremos el nombre del(los) archivo(s) modificado(s) de existir, de lo contrario la hora y fecha, en la ausencia de un comentario personalizado';
+    const CHOICE_BRANCH = 'Selecciona La Rama Desde La Cual Ejecutar El Pull';
 
-    /* Mensaje de Pregunta si desea hacer pull */
-    private $msgConfirmPull = '¿Deseas Hacer Pull De Una Rama?';
+    const ERROR_ARGUMENT = 'Debe Relacionar La Rama Origen ejempo: "php artisan GitPush Raul"';
 
-    /* Mensaje previo a seleccionar la rama. */
-    private $selectRama = 'Selecciona La Rama Desde La Cual Ejecutar El Pull';
-
-    /* Codigo del Comando */
+    const ERROR_BRANCH = 'La Rama Ingresada Como Argumento No Es La Misma Sobre La Cual Se Está Trabajando, Por Favor Vuelva A Ejecutar El Comando Sobre La Rama Correcta.';
+    
     public function handle()
     {
-
         /* Inicio Comando */
-        $this->line(ArtisanUtilities::$start);
+        $bar = $this->output->createProgressBar(100);
+        Utilities::errorHidden();
+        $this->comment(Messages::start());
 
-        /* Argumentos Funcion */
-        $rama = $this->argument('rama');
+        /* Validar que haya un argumento */
+        if (empty($this->argument('rama'))) {
+            $rama = $this->error(Self::ERROR_ARGUMENT);
+            return;
+        }
 
         /* Si la rama enviada como argumento no es la misma en uso, se detendra el proceso */
-        if (!ArtisanUtilities::branchValidate($rama)) {
-            return $this->error($this->msgErrorRama);
+        $rama = Git::validateBranch($this->argument('rama'));
+        if(!$rama->validate){ 
+            $this->error(Self::ERROR_BRANCH);
+            $this->error('La rama actual en uso es: "' . $rama->name . '"');
+            return;
         };
-
+        
         /* Estatus del proyecto */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('LEYENDO CAMBIOS EN EL PROYECTO'));
-        $gitStatus = ArtisanUtilities::GitStatus();
-        $this->info(ArtisanUtilities::processLine('Obtenido El Listado De Archivos Modificados'));
+        $this->info('Leyendo Cambios Del Proyecto.');
+        $gitStatus = Git::status();
+        $this->info('Obtenido El Listado De Archivos Modificados');
         $this->line($gitStatus);
 
         /* LLamado Comando FlushCache */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('LIMPIANDO EL PROYECTO'));
-        ArtisanUtilities::Call('FlushCache');
-        $this->info(ArtisanUtilities::processLine('Ejecutado Exitosamente En Segundo Plano El Comando => php artisan FlushCache'));
+        $this->info(trim('Limpiando El Proyecto ' . env('APP_NAME', '')));
+        Artisan::call('FlushCache');
+        $this->question('Ejecutado Exitosamente En Segundo Plano El Comando => "php artisan FlushCache"');
 
         /* GIT ADD . */
         $this->newLine();
-        $this->info(ArtisanUtilities::headerLine('REGISTRANDO CAMBIOS LOCALES EN GIT'));
-        ArtisanUtilities::GitAdd();
-        ArtisanUtilities::ProcessingTime(3);
-        $this->line(ArtisanUtilities::processLine('Invocado con Exito => git add .'));
+        $this->info('Registrando Cambios Locales');
+        Git::add();
+        Utilities::sleep(3);
+        $this->question('Invocado con Exito => "git add ."');
 
-        /* GIT COMMIT */
-        /* Definir si existe comentarios para el Commit */
-        if (is_string($this->option()["m"])) {
+        
+        /* GIT COMMIT - Definir si existe comentarios para el Commit */
+        $options = $this->option();
+        if (is_string($options["m"])) {
 
             /* Se Valida la longitud de la Observacion. */
-            if (strlen($this->option()["m"]) > 2) {
-
-                /* LLamado Comando FlushCache */
-                ArtisanUtilities::Call('FlushCache');
-
-                /* De tener mas de dos Caracteres, se usará el texto como comentario del commmit */
-                $comentarioCommit = $this->option()["m"];
+            if (strlen($options["m"]) > 2) {
+                
                 $this->newLine();
-                ArtisanUtilities::GitCommit($comentarioCommit);
-                ArtisanUtilities::ProcessingTime(3);
-                $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
-                $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comentarioCommit . '"'));
+                $this->info('Registrando Cambio');
+                Git::commit($options["m"]);
+                Utilities::sleep(3);
+                $this->question('Invocado con Exito => git commit -m "' . $options["m"] . '"');
 
             } else {
 
-                /* LLamado Comando FlushCache */
-                ArtisanUtilities::Call('FlushCache');
-
                 /* De tener menos de 2 caracteres, se usará el datatime como comentario del commmit */
-                $this->info($this->msgComentarioInvalido);
+                $this->warn(Self::INVALID_COMMENT);
 
-                /* Comentario */
-                $comment = ArtisanUtilities::comment($gitStatus);
+                /* Comentario Por Defecto */
+                $comment = Git::default_comment($gitStatus);
 
                 /* Git Commit */
                 $this->newLine();
-                ArtisanUtilities::GitCommit($comment);
-                ArtisanUtilities::ProcessingTime(3);
-                $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
-                $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
+                $this->info('Registrando Cambio');
+                Git::commit($comment);
+                Utilities::sleep(3);
+                $this->question('Invocado con Exito => git commit -m "' . $comment . '"');
             }
 
         } else {
 
-            /* LLamado Comando FlushCache */
-            ArtisanUtilities::Call('FlushCache');
-
             /* De no haberse ingresado un comentario en el comando, se usará el datetime como comentario del commmit */
-            $this->info($this->commentDefault);
+            $this->info(Self::MESSAGE_DEFAULT);
 
-            /* Comentario */
-            $comment = ArtisanUtilities::comment($gitStatus);
+            /* Comentario Por Defecto */
+            $comment = Git::default_comment($gitStatus);
 
             /* Git Commit */
             $this->newLine();
-            ArtisanUtilities::GitCommit($comment);
-            ArtisanUtilities::ProcessingTime(3);
-            $this->info(ArtisanUtilities::headerLine('CREANDO CAMBIO'));
-            $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
+            $this->info('Registrando Cambio');
+            Git::commit($comment);
+            Utilities::sleep(3);
+            $this->question('Invocado con Exito => git commit -m "' . $comment . '"');
 
         }
+        
+        /* GIT PULL - Ramas Proyecto | Conocer las Ramas Asociadas al Proyecto diferentes a la que esta en uso. */
+        $ramas = Git::getOtherBranches();
 
-        /* GIT PULL */
-        /* Ramas Proyecto | Conocer las Ramas Asociadas al Proyecto. */
-        $ramas = ArtisanUtilities::GitBranch();
-
-        /* Generando un array de las ramas. */
-        $arrayRamas = explode('remotes/origin/', $ramas);
-
-        /* De contar con dos ramas o más. */
-        if (count($arrayRamas) > 1) {
-
-            /* Arreglo con las Ramas */
-            $ramasFinal = ArtisanUtilities::ArrayRamas($arrayRamas);
-
-            /* Cantidad de Ramas */
-            $cantidadRamas = count($ramasFinal);
+        /* De contar con ramas adicionales. */
+        if (count($ramas) >= 1) {
 
             $preguntaPull = null;
             while ($preguntaPull == null) {
 
                 $this->newLine();
-                $this->info(ArtisanUtilities::headerLine('DESCARGAR CAMBIOS DE OTRO DESARROLLADOR!'));
-                $this->info('Este Proyecto Tiene Un Total De ' . $cantidadRamas . ' Rama(s) Remotas En GIT');
+                $this->info('¡Descargar Cambios Remotos!');
+                $this->info('Este Proyecto Tiene Un Total De ' . count($ramas) . ' Rama(s) Remotas En GIT');
 
-                $preguntaPull = $this->choice($this->msgConfirmPull, ['No', 'Si']);
+                $preguntaPull = $this->choice(Self::QUESTION_PULL, ['No', 'Si']);
 
                 if ($preguntaPull == 'Si') {
 
-                    $pullRama = $this->choice($this->selectRama, $ramasFinal);
-
-                    /* LLamado Comando FlushCache */
-                    ArtisanUtilities::Call('FlushCache');
+                    $pullRama = $this->choice(Self::CHOICE_BRANCH, $ramas);
 
                     /* Git Pull */
                     $this->newLine();
-                    ArtisanUtilities::GitPull($pullRama);
-                    ArtisanUtilities::ProcessingTime(4);
-                    $this->info(ArtisanUtilities::headerLine('DESCARGANDO CAMBIOS'));
-                    $this->line(ArtisanUtilities::processLine('Invocado con Exito => git pull origin ' . $pullRama));
+                    $this->info('Descargando Cambios');
+                    Git::pull($pullRama);
+                    Utilities::sleep(4);
+                    $this->question('Invocado con Exito => "git pull origin ' . $pullRama . '"');
 
                     /* Git Add */
-                    ArtisanUtilities::GitAdd();
-                    ArtisanUtilities::ProcessingTime(3);
+                    Git::add();
+                    Utilities::sleep(3);
 
                     /* Comentario */
-                    $comment = 'Pull Desde El Origen =>' . $pullRama;
+                    $comment = 'Pull Desde El Origen => ' . $pullRama;
 
                     /* Git Commit */
                     $this->newLine();
-                    ArtisanUtilities::GitCommit($comment);
-                    ArtisanUtilities::ProcessingTime(3);
-                    $this->info(ArtisanUtilities::headerLine('CREANDO REGISTRO LOCAL CON LOS CAMBIOS DESCARGADOS'));
-                    $this->line(ArtisanUtilities::processLine('Invocado con Exito => git commit -m "' . $comment . '"'));
+                    Git::commit($comment);
+                    Utilities::sleep(3);
+                    $this->info('Registrando Cambio Con Los Datos Recibidos En El Pull.');
+                    $this->question('Invocado con Exito => git commit -m "' . $comment . '"');
 
                 }
             }
         }
-
-        /* LLamado Comando FlushCache */
-        ArtisanUtilities::Call('FlushCache');
-
+        
         /* GIT PUSH */
         $this->newLine();
-        ArtisanUtilities::GitPush($rama);
-        ArtisanUtilities::ProcessingTime(4);
-        $this->info(ArtisanUtilities::headerLine('SUBIENDO CAMBIOS A LA RAMA REMOTA'));
-        $this->line(ArtisanUtilities::processLine('Invocado con Exito => git push origin ' . $rama));
+        $this->info('Publicando Cambios En La Rama Remota.');
+        Git::push($this->argument('rama'));
+        Utilities::sleep(4);
+        $this->question('Invocado con Exito => "git push origin ' . $this->argument('rama') . '"');
 
         /* Cierre */
         $this->newLine();
-        $this->info(ArtisanUtilities::$last);
-        $this->line(ArtisanUtilities::$end);
+        $bar->finish();
+        $this->newLine();
+        $this->comment(Messages::success());
+        if(Utilities::existNotify()){
+            $this->notify(Messages::alertTittle(),Messages::alertBody());
+        }
+
+        /* Activacion Errores */
+        Utilities::errorShow();
     }
 }
