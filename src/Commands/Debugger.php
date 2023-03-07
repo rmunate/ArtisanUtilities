@@ -15,8 +15,6 @@ class Debugger extends Command
     public function handle()
     {
         /* Inicio Comando */
-        $bar = $this->output->createProgressBar(100);
-        Utilities::errorHidden();
         $this->comment(Messages::start());
 
         if (! $this->isAllowedToRun()) {
@@ -24,24 +22,19 @@ class Debugger extends Command
             return;
         }
 
-        return collect($this->argument('code'))->map(function (string $command) {
+        $out =  collect($this->argument('code'))->map(function (string $command) {
                     return rtrim($command, ';');
                 })->map(function (string $sanitizedCommand) {
                     return eval("dump({$sanitizedCommand});");
                 })->implode(PHP_EOL);
 
-        /* Cierre */
-        $this->newLine();
-        $bar->finish();
-        $this->newLine();
         $this->comment(Messages::success());
         if(Utilities::existNotify()){
             $this->notify(Messages::alertTittle(),Messages::alertBody());
         }
 
-        /* Activacion Errores */
-        Utilities::errorShow();
-        
+        return $out;
+    
     }
 
     protected function isAllowedToRun(): bool
