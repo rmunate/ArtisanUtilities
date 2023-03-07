@@ -3,6 +3,7 @@
     "description": "Este paquete contiene diversos comandos de Artisan que buscan ejecutar diferentes trabajos relacionados con el control de cambios, el trabajo comunitario y la optimización del proyecto. Todo desde la facilidad del terminal. Funciona para proyectos Laravel ^8.0 PHP, ^7.4",
     "keywords": [
         "artisan",
+        "laravel",
         "git",
         "altum",
         "rmunate"
