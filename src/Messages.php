@@ -35,3 +35,5 @@ class Messages
         return '¡Gracias por utilizar Artizan Utilities!. Por: Raul M. Uñate';
     }
 }
+
+?>

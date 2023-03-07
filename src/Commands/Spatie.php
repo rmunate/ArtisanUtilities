@@ -125,3 +125,5 @@ class Spatie extends Command
 
     }
 }
+
+?>

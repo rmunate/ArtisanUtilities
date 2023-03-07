@@ -8,7 +8,6 @@ use Rmunate\ArtisanUtilities\Utilities;
 
 class AccessFolders extends Command
 {
-
     /* Nombre del Comando */
     protected $signature = 'AccessFolders';
 

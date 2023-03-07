@@ -49,3 +49,5 @@ class RestarApache extends Command {
 
     }
 }
+
+?>

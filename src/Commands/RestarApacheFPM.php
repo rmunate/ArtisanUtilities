@@ -50,3 +50,5 @@ class RestarApacheFPM extends Command
 
     }
 }
+
+?>

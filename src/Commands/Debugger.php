@@ -42,7 +42,6 @@ class Debugger extends Command
         if (env('ALLOW_DD_COMMAND') === true) {
             return true;
         }
-
         return app()->environment('local');
     }
 }

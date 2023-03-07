@@ -114,3 +114,5 @@ class GitRevert extends Command
         Utilities::errorShow();
     }
 }
+
+?>

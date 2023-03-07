@@ -181,3 +181,5 @@ class GitPush extends Command
         Utilities::errorShow();
     }
 }
+
+?>

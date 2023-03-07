@@ -113,3 +113,5 @@ class GitCheckOut extends Command
         Utilities::errorShow();
     }
 }
+
+?>

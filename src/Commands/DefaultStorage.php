@@ -50,3 +50,5 @@ class DefaultStorage extends Command
 
     }
 }
+
+?>

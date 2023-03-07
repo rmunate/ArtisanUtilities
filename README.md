@@ -1,30 +1,25 @@
-# Artisan Utilities (Comandos Utiles Para Optimizar Actividades De Proyectos Laravel)
-## _Automatización Comandos GIT, Permisos, Caches, etc. Ideal para trabajo en Equipo_
+# Artisan Utilities (LARAVEL)
+> [![Raul Mauricio Uñate Castro](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/LogoGithubLibrerias.png)](#)
 
-[![N|Solid](https://i.ibb.co/ZLzQTpm/Firma-Git-Hub.png)](#)
-
-Este paquete contiene diversos comandos de Artisan que buscan ejecutar diferentes trabajos relacionados con el control de cambios, el trabajo comunitario y la optimización del proyecto. Todo desde la facilidad del terminal.
-Funciona para proyectos Laravel ^8.0 y PHP ^7.4
+Paquete de Comandos Artisan con diversas funcionalidades dentro del proyecto, con la capacidad de ejecutar diversas tareas que van desde el correcto manejo de las fuentes hasta el debugger por consola de sus funciones o algoritmos.
 
 ## Características
+-   Maneje sus fuentes en GIT a través de comandos artisan que ejecutan en las tareas por usted, garantizando las mejores practicas.
+-   Configure el cache de su proyecto de la forma correcta con un solo comando.
+-   Limpie su proyecto (log, temporales, etc) con un solo comando.
+-   Ajuste el .gitignore de su proyecto desde la facilidad de la terminal, el sistema escanea por usted las carpetas y genera el estándar que corresponda.
+-   Ajuste los permisos de los directorios para el correcto funcionamiento de manejo de archivos.
+-   Si trabaja en MAC con HomeBrew puede cambiar entre las versiones de PHP instaladas.
+-   Si trabaja desde Linux o hace deploy en este Sistema Operativo, podrá reiniciar servicios, o desplegar la configuración del proyecto desde un solo comando.
 
--	Ejecute comandos rápidos desde la terminal y deje que el paquete trabaje por usted.
--	Ejecute cargues y descargues de cambios en GIT con las mejores prácticas (Automatizadas).
--	Limpie su proyecto las veces que requiera con una sola línea (Limpie el cache, tokken vencidos, etc.).
--	Mejore el rendimiento del sistema con un simple comando.
--   Si trabaja en MAC OS, cambie la version de PHP con un comando.
--   Ajuste el GitIgnore de su Proyecto.
--   De Accesos a las carpetas de acuerdo al Estandar Laravel.
--   Ideal para cargue a ambientes QA y Productivo (Linux)
+# Instalación
+## _Instalación a través de Composer_
 
-## Instalación
-
-# Instalar a través de Composer.
 ```console
 composer require rmunate/artisan-utilities 5.0.x-dev
 ```
 
-# (OPCIONAL) Presentar el Proveedor en el archivo config\app.php.
+## _(OPCIONAL) Presentar el Proveedor en el archivo config\app.php_
 
 ```php
 'providers' => [
@@ -33,138 +28,45 @@ composer require rmunate/artisan-utilities 5.0.x-dev
 ],
 ```
 
-## Comandos
+## Metodos Git
 
-Podrá invocar el comando que requiera desde la terminal sobre la raiz principal del proyecto.
-
-```console
-php artisan FlushCache
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan FlushCache` | Ejecute la limpieza total de su proyecto (cache, vistas, rutas, configuración, autenticación, eventos, colas, calendarios), recuerde estar conectado a la base de datos, ya que se ejecutará la limpieza de información “basura” desde las tablas por defecto de Laravel (Sin tocar información del sistema). Elimina los Logs del proyecto. Ajusta la configuración correcta de la carpeta Storage. Asigna los permisos que corresponden a las diferentes carpetas del Framework para garantizar el correcto funcionamiento. |
-
-```console
-php artisan DefaultStorage
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan DefaultStorage` | Ajusta o crea la carpeta Storage del Framework de acuerdo al estándar. |
-
-```console
-php artisan DefaultIgnore
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
+| METODO | DESCRIPCIÓN |
+| ------ | ------ |
+| `php artisan GitPush Rama --m"Comentario"` | Cargue los cambios de su repositorio a GIT (al Git que tenga configurada su máquina), este comando se puede ejecutar con comentario o sin comentario `php artisan GitPush Rama”` en este caso la misma librería le asignará un comentario de los archivos ajustados.  Además, el comando le preguntará si desea descargar cambios de alguna rama remota del proyecto, ejecutando la tarea por usted. Solo deberá seleccionar la rama de la cual quiere bajar cambios de la lista desplegable que le entrega el comando. |
+| `php artisan GitReset --log"10"` | GitReset es el comando que usamos cuando queremos mover el repositorio a una confirmación anterior, descartando cualquier cambio realizado después de esa confirmación, este comando es el igual a (git reset --hard), se debe ejecutar bajo la responsabilidad que amerita el regresar el proyecto descartando los cambios posteriores. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
+| `php artisan GitRevert --log"10"` | GitRevert es el comando que usamos cuando queremos revertir el efecto de algunos cambios anteriores (posiblemente defectuosos), no elimina los cambios solo revierte lo implementado en las confirmaciones posteriores a la seleccionada para revertir. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
+| `php artisan GitCheckOut --log"10"` | GitCheckOut es el comando que usamos cuando queremos ir a el estado de algún cambio anterior especifico. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
 | `php artisan DefaultIgnore` | Ajusta el Git Ignore principal del proyecto, de acuerdo con el estándar del Framework, adicional valida si usa dependencias de NPM o carpetas del IDE para igualmente ignorarlas en los cargues. |
 
-```console
-php artisan ConfigCache
-```
+## Metodos Framework
 
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
+| METODO | DESCRIPCIÓN |
+| ------ | ------ |
 | `php artisan ConfigCache` | Ajusta el cache del proyecto, eliminando los archivos previos de configuración, creando los nuevos y regenerando el autoload de composer. |
+| `php artisan FlushCache` | Ejecute la limpieza total de su proyecto (cache, vistas, rutas, configuración, autenticación, eventos, colas, calendarios), recuerde estar conectado a la base de datos, ya que se ejecutará la limpieza de información “basura” desde las tablas por defecto de Laravel (Sin tocar información del sistema). Elimina los Logs del proyecto. Ajusta la configuración correcta de la carpeta Storage. Asigna los permisos que corresponden a las diferentes carpetas del Framework para garantizar el correcto funcionamiento. |
+| `php artisan DefaultStorage` | Ajusta o crea la carpeta Storage del Framework de acuerdo al estándar. |
+| `php artisan debugger "App\Models\User::first()"` | Ejecuta el debugger del codigo desde la terminal. |
 
-```console
-php artisan AccessFolders
-```
+## Metodos Utilitarios
 
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
+| METODO | DESCRIPCIÓN |
+| ------ | ------ |
 | `php artisan AccessFolders` | Ajusta los permisos de las carpetas del Proyecto. Brinda accesos de escritura a la carpeta Public y a la carpeta Storage. |
-
-
-```console
-# Estructura Con Comentario
-php artisan GitPush Rama --m=“Comentario commit”
-
-# Estructura Sin Comentario
-php artisan GitPush Rama 
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan GitPush Rama --m=“Comentario commit”` | Cargue los cambios de su repositorio a GIT (al Git que tenga configurada su máquina), este comando se puede ejecutar con comentario o sin comentario `php artisan GitPush Rama”` en este caso la misma librería le asignará un comentario de los archivos ajustados.  Además, el comando le preguntará si desea descargar cambios de alguna rama remota del proyecto, ejecutando la tarea por usted. Solo deberá seleccionar la rama de la cual quiere bajar cambios de la lista desplegable que le entrega el comando. |
-
-![image](https://user-images.githubusercontent.com/91748598/189487197-9054821b-8d2a-42fd-b9be-cf0b2a830779.png)
-
-```console
-php artisan PHPVersion
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan PHPVersion` | Retorna la versión en uso de PHP. |
-
-```console
-php artisan mac-php
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan mac-php` | (MAC OS) (Solo si se trabaja con HomeBrew) Lista las versiones de PHP disponibles instaladas en el MAC, permitiendo seleccionar cual configurar al sistema. |
-
-```console
-php artisan fpm-php
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan fpm-php` | (LINUX UBUNTU PHP-FPM) Permite cambiar la versión de PHP configurada en el servidor Linux Ubunto. |
-
-```console
-php artisan apache-restart
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan apache-restart` | (LINUX UBUNTU) Reiniciar el servicio de Apache en el servidor |
-
-```console
-php artisan apache-restart-fpm
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
+| `php artisan php-version` | Retorna la versión en uso de PHP. |
+| `php artisan php-mac` | (MAC OS) (Solo si se trabaja con HomeBrew) Lista las versiones de PHP disponibles instaladas en el MAC, permitiendo seleccionar cual configurar al sistema. |
 | `php artisan apache-restart-fpm` | (LINUX UBUNTU PHP-FPM) Reiniciar el servicio de Apache en el servidor Lunux Ubunto con FPM instalado. |
+| `php artisan apache-restart` | (LINUX UBUNTU) Reiniciar el servicio de Apache en el servidor. |
+| `php artisan deploy` | (LINUX UBUNTU) Ejecuta todas las líneas de comandos para garantizar el correcto funcionamiento del proyecto en el ambiente productivo, crea una nueva llave, regenera el cache, asigna permisos, actualiza dependencias, etc. |
 
-```console
-php artisan Spatie Show
-```
+## Metodos Librerias Externas
 
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
+| METODO | DESCRIPCIÓN |
+| ------ | ------ |
+| `php artisan Spatie Cache` | (Solo si se usa Spatie Permission) Limpia el cache de permisos de Spatie sobre todo el sistema. |
 | `php artisan Spatie Show` | (Solo si se usa Spatie Permission) Lista los permisos creados en el sistema. |
 
-```console
-php artisan Spatie Cache
-```
 
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan Spatie Cache` | (Solo si se usa Spatie Permission) Limpia el cache de permisos de Spatie sobre todo el sistema. |
+## Mantenedores
+- Ingeniero, Raúl Mauricio Uñate Castro (raulmauriciounate@gmail.com)
 
-```console
-php artisan GitReset --log=“10”
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan GitReset --log=“10”` | GitReset es el comando que usamos cuando queremos mover el repositorio a una confirmación anterior, descartando cualquier cambio realizado después de esa confirmación, este comando es el igual a (git reset), se debe ejecutar bajo la responsabilidad que amerita el regresar el proyecto descartando los cambios posteriores. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
-
-```console
-php artisan GitRevert --log=“10”
-```
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| `php artisan GitRevert --log=“10”` | GitRevert es el comando que usamos cuando queremos revertir el efecto de algunos cambios anteriores (posiblemente defectuosos), no elimina los cambios solo revierte lo implementado en las confirmaciones posteriores a la seleccionada para revertir. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
-
-## Desarrollador
-
-- Ingeniero, Raúl Mauricio Uñate Castro
-- Email: raulmauriciounate@gmail.com
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)

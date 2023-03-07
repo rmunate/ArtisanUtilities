@@ -44,3 +44,5 @@ class PHPVersion extends Command
 
     }
 }
+
+?>

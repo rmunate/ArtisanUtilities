@@ -46,3 +46,5 @@ class DefaultIgnore extends Command
 
     }
 }
+
+?>

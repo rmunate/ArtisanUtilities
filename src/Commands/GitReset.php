@@ -113,3 +113,5 @@ class GitReset extends Command
         Utilities::errorShow();
     }
 }
+
+?>

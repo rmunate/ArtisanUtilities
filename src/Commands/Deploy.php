@@ -30,6 +30,8 @@ class Deploy extends Command
         Utilities::errorHidden();
         $this->comment(Messages::start());
 
+        Artisan::call('key:generate');
+
         /* Ajuste Storage & Logs */
         $this->newLine();
         $this->info("Iniciando Reajuste Carpete Storage.");
@@ -75,7 +77,8 @@ class Deploy extends Command
         $this->line("Cache Actualizado Exitosamente");
 
         /* ReIniciando Composer */
-        $composer = @shell_exec('composer dump-autoload');
+        $this->info("Actualizando Dependencias");
+        $composer = @shell_exec('composer update');
         $this->line("Autoload Composer Regenerado");
 
         $this->question('Proyecto Desplegado!');
@@ -94,3 +97,5 @@ class Deploy extends Command
 
     }
 }
+
+?>

@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
