@@ -5,14 +5,19 @@ namespace Rmunate\ArtisanUtilities;
 class Git
 {
     
+    /* Mensaje cuando no hayan cambios en la Rama */
     const DEFAULT_COMMENT_WITHOUT_CHANGES = 'Registro Sin Cambios En El Proyecto.';
 
+    /* Mensaje Previo a la lista de cambios del proyecto */
     const TEXT_BEFORE_CHANGED_FILES = 'Archivo(s) Actualizado(s): ';
 
+    /* Texto previo a cada nombre de archivo modificado */
     const TEXT_BEFORE_FILE_CHANGED = 'Archivo Con Cambios #';
 
+    /* Mensaje cuando no se registren cambios desde el anterior commit */
     const WITHOUT_CHANGES = 'No Registran Cambios Desde El Último -Commit-';
 
+    /* Textos a excluid al sanear el arreglo de ramas */
     const BRANCHES_CHARACTERS = [
         "* ",
         "\n  master\n  ",
@@ -23,6 +28,7 @@ class Git
         "\n"
     ];
 
+    /* Lineas a Excluir del status */
     const OMIT_LINES_CONTAINING = [
         'En la rama',
         'Tu rama est',
@@ -226,4 +232,11 @@ class Git
         return shell_exec('git revert '. $cambio);
     }
 
+    /* Git CheckOut */
+    public static function checkout(string $cambio){
+        return shell_exec('git checkout '. $cambio);
+    }
+
 }
+
+?>
