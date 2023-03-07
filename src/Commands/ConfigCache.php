@@ -55,3 +55,5 @@ class ConfigCache extends Command
         Utilities::errorShow();
     }
 }
+
+?>

@@ -46,3 +46,5 @@ class AccessFolders extends Command
         Utilities::errorShow();
     }
 }
+
+?>

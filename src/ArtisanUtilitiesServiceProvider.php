@@ -33,7 +33,7 @@ class ArtisanUtilitiesServiceProvider extends ServiceProvider
             Commands\RestarApacheFPM::class,
             Commands\RestarApache::class,
             Commands\Deploy::class,
-            /* Librerias de Terceris */
+            /* Librerias de Terceros */
             Commands\Spatie::class,
         ]);
     }
