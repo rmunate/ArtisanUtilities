@@ -38,6 +38,8 @@ class Git
         'Changes not staged',
         'sin cambios',
         'Cambios a ser',
+        'n branch',
+        'our branch',
         'git restore',
         'git push',
         'commit'
@@ -101,8 +103,12 @@ class Git
             foreach ($status as $one) {
                 if (($one != "") && Self::line_contains($one)) {
                     $one = str_replace(["\t", ' '],"", $one);
-                    $one = str_replace(":"," : ", $one);
-                    $one = str_replace("modificados", Self::TEXT_BEFORE_FILE_CHANGED . $i, $one);
+                    if (str_contains($one, ':')) {
+                        $one = str_replace(":"," : ", $one);
+                        $one = explode(':', $one);
+                        $one = (count($one) > 1) ? $one[1] : $one[0];
+                    }
+                    $one = Self::TEXT_BEFORE_FILE_CHANGED . $i . ': ' . trim($one);
                     $i++;
                     array_push($data, $one);
                 }
