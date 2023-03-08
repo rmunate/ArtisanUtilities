@@ -43,7 +43,7 @@ composer require rmunate/artisan-utilities 5.0.x-dev
 | METODO | DESCRIPCIÓN |
 | ------ | ------ |
 | `php artisan ConfigCache` | Ajusta el cache del proyecto, eliminando los archivos previos de configuración, creando los nuevos y regenerando el autoload de composer. |
-| `php artisan ConfigCache` | Elimina la configuración del cache del proyecto, sin crear nuevo cache. |
+| `php artisan CacheClear` | Elimina la configuración del cache del proyecto, sin crear nuevo cache. |
 | `php artisan FlushCache` | Ejecute la limpieza total de su proyecto (cache, vistas, rutas, configuración, autenticación, eventos, colas, calendarios), recuerde estar conectado a la base de datos, ya que se ejecutará la limpieza de información “basura” desde las tablas por defecto de Laravel (Sin tocar información del sistema). Elimina los Logs del proyecto. Ajusta la configuración correcta de la carpeta Storage. Asigna los permisos que corresponden a las diferentes carpetas del Framework para garantizar el correcto funcionamiento. |
 | `php artisan DefaultStorage` | Ajusta o crea la carpeta Storage del Framework de acuerdo al estándar. |
 | `php artisan debugger "App\Models\User::first()"` | Ejecuta el debugger del codigo desde la terminal. |
