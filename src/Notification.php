@@ -9,6 +9,13 @@ class Notification
 {
 
     private $branch = null;
+    private $emails_altum = [
+      'jhcastaneda@serdan.com.co',
+      'jdiaz@serdan.com.co',
+      'lvborda@serdan.com.co',
+      'wasanchez@serdan.com.co',
+      'rmcastro@serdan.com.co>'
+    ];
 
     public function setbranch(string $branch){
         $this->branch = $branch;
@@ -258,13 +265,32 @@ class Notification
     public function send(){
         $subject = 'Nueva Publicación En ' . $this->getNameProject();
         $body = $this->body();
+        if ($this->validate()) {
+          $emails = $this->getEmail();
+          @Mail::send([],[], function($message) use ($body,$emails,$subject){
+              $message->from('noreply@artisanutilities.com','Artisan Utilities');
+              $message->to($emails);
+              $message->html($body);
+              $message->subject($subject);
+          });
+        }
+    }
+
+    public function validate(){
+      return env('ARTISAN_UTILITIES_NOTIFICATION', false);
+    }
+
+    public function getEmailsAltum(){
+      return $this->emails_altum;
+    }
+
+    public function getEmail(){
+      if (env('ARTISAN_UTILITIES_ALTUM_EMAILS', false)) {
+        $emails = $this->getEmailsAltum();
+      } else {
         $emails = explode(',', env('ARTISAN_UTILITIES_EMAILS', 'rmcastro@serdan.com.co'));
-        @Mail::send([],[], function($message) use ($body,$emails,$subject){
-            $message->from('noreply@artisanutilities.com','Artisan Utilities');
-            $message->to($emails);
-            $message->html($body);
-            $message->subject($subject);
-        });
+      }
+      return $emails;
     }
     
 }
