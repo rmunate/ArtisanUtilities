@@ -51,6 +51,7 @@ class Deploy extends Command
             Artisan::call($command);
             $this->line($comment);
         }
+        Artisan::call('optimize');
 
         /* Configuracion de permisos */
         $this->newLine();
