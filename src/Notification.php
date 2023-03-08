@@ -1,6 +1,6 @@
 <?php
 
-namespace Rmunate\ArtisanUtilities\Commands; 
+namespace Rmunate\ArtisanUtilities;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Application;
@@ -26,7 +26,7 @@ class Notification
             'SO'        => php_uname(),
             'PHP'       => PHP_VERSION,
             'laravel'   => Application::VERSION,
-            'url'       => $_SERVER["HTTP_HOST"]
+            'url'       => !empty($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : 'Actualización En Ambiente Local'
         ];
     }
 

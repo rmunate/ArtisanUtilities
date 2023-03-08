@@ -10,7 +10,7 @@ use Rmunate\ArtisanUtilities\Messages;
 use Illuminate\Support\Facades\Artisan;
 use Rmunate\ArtisanUtilities\Utilities;
 use Rmunate\ArtisanUtilities\ListCommands;
-use Rmunate\ArtisanUtilities\Commands\Notification;
+use Rmunate\ArtisanUtilities\Notification;
 
 class GitPush extends Command
 {
