@@ -43,6 +43,7 @@ composer require rmunate/artisan-utilities 5.0.x-dev
 | METODO | DESCRIPCIÓN |
 | ------ | ------ |
 | `php artisan ConfigCache` | Ajusta el cache del proyecto, eliminando los archivos previos de configuración, creando los nuevos y regenerando el autoload de composer. |
+| `php artisan ConfigCache` | Elimina la configuración del cache del proyecto, sin crear nuevo cache. |
 | `php artisan FlushCache` | Ejecute la limpieza total de su proyecto (cache, vistas, rutas, configuración, autenticación, eventos, colas, calendarios), recuerde estar conectado a la base de datos, ya que se ejecutará la limpieza de información “basura” desde las tablas por defecto de Laravel (Sin tocar información del sistema). Elimina los Logs del proyecto. Ajusta la configuración correcta de la carpeta Storage. Asigna los permisos que corresponden a las diferentes carpetas del Framework para garantizar el correcto funcionamiento. |
 | `php artisan DefaultStorage` | Ajusta o crea la carpeta Storage del Framework de acuerdo al estándar. |
 | `php artisan debugger "App\Models\User::first()"` | Ejecuta el debugger del codigo desde la terminal. |
@@ -56,7 +57,7 @@ composer require rmunate/artisan-utilities 5.0.x-dev
 | `php artisan php-mac` | (MAC OS) (Solo si se trabaja con HomeBrew) Lista las versiones de PHP disponibles instaladas en el MAC, permitiendo seleccionar cual configurar al sistema. |
 | `php artisan apache-restart-fpm` | (LINUX UBUNTU PHP-FPM) Reiniciar el servicio de Apache en el servidor Lunux Ubunto con FPM instalado. |
 | `php artisan apache-restart` | (LINUX UBUNTU) Reiniciar el servicio de Apache en el servidor. |
-| `php artisan deploy` | (LINUX UBUNTU) Ejecuta todas las líneas de comandos para garantizar el correcto funcionamiento del proyecto en el ambiente productivo, crea una nueva llave, regenera el cache, asigna permisos, actualiza dependencias, etc. |
+| `php artisan deploy` | (LINUX UBUNTU) Ejecuta todas las líneas de comandos para garantizar el correcto funcionamiento del proyecto en el ambiente productivo, crea una nueva llave, regenera el cache, asigna permisos, actualiza dependencias, alerta ajustes en el ENV, etc. |
 
 ## Metodos Librerias Externas
 
