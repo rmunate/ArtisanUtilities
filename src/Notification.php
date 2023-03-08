@@ -14,7 +14,7 @@ class Notification
       'jdiaz@serdan.com.co',
       'lvborda@serdan.com.co',
       'wasanchez@serdan.com.co',
-      'rmcastro@serdan.com.co>'
+      'rmcastro@serdan.com.co'
     ];
 
     public function setbranch(string $branch){
