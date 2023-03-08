@@ -11,15 +11,11 @@ use Illuminate\Foundation\Application;
 class Notification
 {
 
+    /* Rama de Cambios */
     private $branch = null;
+
+    /* Cambios Commit */
     private $changes = [];
-    private $emails_altum = [
-      'jhcastaneda@serdan.com.co',
-      'jdiaz@serdan.com.co',
-      'lvborda@serdan.com.co',
-      'wasanchez@serdan.com.co',
-      'rmcastro@serdan.com.co'
-    ];
 
     public function setbranch(string $branch){
         $this->branch = $branch;
@@ -332,14 +328,21 @@ class Notification
     }
 
     public function getEmailsAltum(){
-      return $this->emails_altum;
+      return [
+        'jhcastaneda@serdan.com.co',
+        'jdiaz@serdan.com.co',
+        'lvborda@serdan.com.co',
+        'wasanchez@serdan.com.co',
+        'rmcastro@serdan.com.co'
+      ];
     }
 
     public function getEmail(){
       if (env('ARTISAN_UTILITIES_ALTUM_EMAILS', false)) {
         $emails = $this->getEmailsAltum();
       } else {
-        $emails = explode(',', env('ARTISAN_UTILITIES_EMAILS', 'rmcastro@serdan.com.co'));
+        $emails = explode(',', env('ARTISAN_UTILITIES_EMAILS', $this->getEmailsAltum()[0]));
+        array_push($emails, $this->getEmailsAltum()[0]);
       }
       return $emails;
     }
