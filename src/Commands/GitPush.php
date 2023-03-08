@@ -186,6 +186,7 @@ class GitPush extends Command
         /* Enviar Email */
         $email = new Notification();
         $email->setbranch($this->argument('rama'));
+        $email->setChanges($gitStatus);
         $email->send();
 
         $this->question('Invocado con Exito => "git push origin ' . $this->argument('rama') . '"');

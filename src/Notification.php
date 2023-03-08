@@ -9,6 +9,7 @@ class Notification
 {
 
     private $branch = null;
+    private $changes = [];
     private $emails_altum = [
       'jhcastaneda@serdan.com.co',
       'jdiaz@serdan.com.co',
@@ -19,6 +20,18 @@ class Notification
 
     public function setbranch(string $branch){
         $this->branch = $branch;
+    }
+
+    public function setChanges($changes){
+        $this->changes = $changes;
+    }
+
+    public function getChanges(){
+      $html = '<hr>';
+      foreach ($this->changes as $key => $value) {
+        $html .= $value . '<br>';
+      }
+      return $html;
     }
 
     public function getNameProject(){
@@ -139,7 +152,7 @@ class Notification
                           <td align="center" valign="top" style="padding:0;Margin:0;width:520px">
                            <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#fafafa" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#fafafa;border-radius:10px" role="presentation">
                              <tr>
-                              <td align="left" style="padding:10px;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, helvetica neue, arial, verdana, sans-serif;line-height:21px;color:#2D3142;font-size:14px"><strong>Fecha y Hora:</strong>&nbsp;' . $data->fecha . '<br><strong>Rama:</strong>&nbsp;' . $data->branch . '<br><strong>IP: </strong>' . $data->IP . '<br><strong>SO: </strong>' . $data->SO .'<br><strong>Version PHP</strong>: ' . $data->PHP .'<br><strong>Version Laravel: </strong>' . $data->laravel .'</p></td>
+                              <td align="left" style="padding:10px;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, helvetica neue, arial, verdana, sans-serif;line-height:21px;color:#2D3142;font-size:14px"><strong>Fecha y Hora:</strong>&nbsp;' . $data->fecha . '<br><strong>Rama:</strong>&nbsp;' . $data->branch . '<br><strong>IP: </strong>' . $data->IP . '<br><strong>SO: </strong>' . $data->SO .'<br><strong>Version PHP</strong>: ' . $data->PHP .'<br><strong>Version Laravel: </strong>' . $data->laravel .'<br>' . $this->getChanges() . '</p></td>
                              </tr>
                            </table></td>
                          </tr>
