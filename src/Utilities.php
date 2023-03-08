@@ -1,6 +1,7 @@
 <?php
 
 namespace Rmunate\ArtisanUtilities;
+use Illuminate\Support\Facades\Artisan;
 
 class Utilities
 {
@@ -61,6 +62,12 @@ class Utilities
     /* Validar Si Tiene Spatie */
     public static function existLaravelPermission(){
         return class_exists('Spatie\Permission\PermissionServiceProvider');
+    }
+
+    /* Validar Si Un Comando Existe */
+    public static function commandExists($name)
+    {
+        return array_has(Artisan::all(), $name);
     }
     
 }

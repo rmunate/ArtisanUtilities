@@ -7,13 +7,13 @@ use Rmunate\ArtisanUtilities\Cache;
 use Rmunate\ArtisanUtilities\Messages;
 use Rmunate\ArtisanUtilities\Utilities;
 
-class ConfigCache extends Command
+class CacheClear extends Command
 {
     /* Nombre del Comando */
-    protected $signature = 'ConfigCache';
+    protected $signature = 'CacheClear';
 
     /* Descripción del Comando */
-    protected $description = 'Ajusta el cache del proyecto, eliminando los archivos previos de configuración, creando los nuevos y regenerando el autoload de composer.';
+    protected $description = 'Eliminar todos los caches del proyecto';
 
     /* @return Void */
     public function handle()
@@ -33,7 +33,7 @@ class ConfigCache extends Command
         $this->info('Eliminación Configuración De Cache Actual Exitoso');
 
         /* Configurar Cache */
-        Cache::config();
+        Cache::clear();
         $this->question("Cache Actualizado Exitosamente");
 
         /* ReIniciando Composer */

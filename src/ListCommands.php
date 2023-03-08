@@ -25,17 +25,12 @@ class ListCommands
         'cache:clear'           =>  'Cache General Del Proyecto, Volcado Correctamente.',
         'config:clear'          =>  'Cache De Configuración Del Proyecto, Volcado Correctamente.',
         'view:clear'            =>  'Cache De Vistas, Colcado Correctamente.',
-        'config:cache'          =>  'Revisión Configuración De Cache.'
     ];
 
     const COMMANDS_CACHE_CONFIG = [
         'config:cache'          =>  'Revisión Configuración De Cache.',
         'optimize'              =>  'Revisión De La Optimización Del Proyecto.'
     ];
-
-    /* Mensajes */
-    const MAC =  'Definidos Los Comandos Compatibles Y Dispoinibles En Su Proyecto.';
-
 
     /* Local */
     public static function get(){

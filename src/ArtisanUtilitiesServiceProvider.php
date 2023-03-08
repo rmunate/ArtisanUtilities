@@ -23,6 +23,7 @@ class ArtisanUtilitiesServiceProvider extends ServiceProvider
             Commands\DefaultIgnore::class,
             /* Framework */
             Commands\ConfigCache::class,
+            Commands\CacheClear::class,
             Commands\FlushCache::class,
             Commands\DefaultStorage::class,
             Commands\Debugger::class,

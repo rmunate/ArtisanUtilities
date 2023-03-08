@@ -3,6 +3,7 @@
 namespace Rmunate\ArtisanUtilities;
 
 use Illuminate\Support\Facades\Artisan;
+use Rmunate\ArtisanUtilities\Utilities;
 use Rmunate\ArtisanUtilities\ListCommands;
 
 class Cache
@@ -21,10 +22,22 @@ class Cache
     }
 
     /* Configurar Cache */
-    public static function artisan()
+    public static function config()
     {
         foreach (ListCommands::COMMANDS_CACHE_CONFIG as $command => $message) {
-            Artisan::call($command);
+            if (Utilities::commandExists($command)) {
+                Artisan::call($command);
+            }
+        }
+    }
+
+    /* Limpiar Cache */
+    public static function clear()
+    {
+        foreach (ListCommands::COMMANDS_CACHE_CLEAR as $command => $message) {
+            if (Utilities::commandExists($command)) {
+                Artisan::call($command);
+            }
         }
     }
 }
