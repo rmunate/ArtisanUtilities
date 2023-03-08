@@ -32,7 +32,7 @@ class Messages
     
     /* Mensaje de Cancelacion */
     public static function alertBody(){
-        return '¡Gracias por utilizar Artizan Utilities!. Grupo Altum Developers';
+        return '¡Gracias por utilizar Artizan Utilities!. Altum Digital Developers';
     }
 }
 
