@@ -38,6 +38,15 @@ composer require rmunate/artisan-utilities 5.0.x-dev
 | `php artisan GitCheckOut --log"10"` | GitCheckOut es el comando que usamos cuando queremos ir a el estado de algún cambio anterior especifico. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
 | `php artisan DefaultIgnore` | Ajusta el Git Ignore principal del proyecto, de acuerdo con el estándar del Framework, adicional valida si usa dependencias de NPM o carpetas del IDE para igualmente ignorarlas en los cargues. |
 
+
+## Notifiaciones Email
+Si trabajas en un equipo de desarrolladores y quieres notificar cada vez que se publique un nuevo cambio en GIT, puedes crear en el .env del proyecto, una lista de correos para que sean notificados cada vez que se ejecute con exito `php artisan GitPush Rama`
+
+```console
+#Ejemplo Variable env (Separar correos con coma)
+ARTISAN_UTILITIES_EMAILS = "raulmauriciounate@gmail.com.co,otro@otro.com.co"
+```
+
 ## Metodos Framework
 
 | METODO | DESCRIPCIÓN |
