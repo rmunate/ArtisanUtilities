@@ -21,7 +21,7 @@ class Notification
     public function getDataNotification(){
         return (object) [
             'fecha'     => date('Y-m-d H:i:s'),
-            'branch'    => $this->getRama(),
+            'branch'    => $this->branch,
             'IP'        => $_SERVER['REMOTE_ADDR'],
             'SO'        => php_uname(),
             'PHP'       => PHP_VERSION,
