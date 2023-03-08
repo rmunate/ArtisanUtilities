@@ -66,8 +66,7 @@ class GitPush extends Command
 
         Storage::clearLogs();
         Cache::deleteTMP();
-        Cache::artisan();
-        $commands = ListCommands::get();
+        $commands = ListCommands::orderCacheClear();
         $this->info($commands->message);
         foreach ($commands->list as $command => $comment) {
             Artisan::call($command);

@@ -27,8 +27,6 @@ class Deploy extends Command
         Utilities::errorHidden();
         $this->comment(Messages::start());
 
-        Artisan::call('key:generate');
-
         /* Ajuste Storage & Logs */
         $this->newLine();
         $this->info("Iniciando Reajuste Carpete Storage.");
@@ -37,20 +35,15 @@ class Deploy extends Command
         $this->line("Log Laravel Del Proyecto Reiniciado Correctamente.");
 
         /* Eliminacion Cache del proyecto */
-        /* Comandos Artisan a Ejecutar - Mismo Orden de Ejecucion */
         $this->newLine();
         $this->info('Limpiando Proyecto');
-        /* Definir Comandos de Acuerdo al Sistema operativo */
-        $commands = ListCommands::get();
+        Cache::deleteTMP();
+        $commands = ListCommands::orderDeploy();
         $this->line($commands->message);
-
         foreach ($commands->list as $command => $comment) {
             Artisan::call($command);
             $this->line($comment);
         }
-
-        /* Optimizar Cache Produccion */
-        Artisan::call('optimize');
 
         /* Configuracion de permisos */
         $this->newLine();
@@ -63,29 +56,16 @@ class Deploy extends Command
         Utilities::chmod('public');
         $this->line("Permisos De Escritura Y Lectura Asignados A La Carpeta Public");
 
-        /* Configuracion de Cache --- */
-        $this->newLine();
-        $this->info('Configuración Total De Cache');
-
-        /* Eliminar Cache Actual */
-        Cache::deleteTMP();
-        $this->newLine();
-        $this->line('Eliminación Configuración De Cache Actual Exitoso');
-
-        /* Configurar Cache */
-        Cache::artisan();
-        $this->line("Cache Actualizado Exitosamente");
-
         /* ReIniciando Composer */
         $this->info("Actualizando Dependencias");
         $composer = @shell_exec('composer update');
         $this->line("Autoload Composer Regenerado");
 
-        $this->question('Proyecto Desplegado!');
+        $this->question('¡Proyecto Desplegado!');
 
         if (env("APP_DEBUG")) {
             $this->newLine();
-            $this->warn('Por favor ajuste su .ENV "APP_DEBUG = false", actualmente se estan imprimiendo los mensajes de depuración y esto pone en riesgo la seguridad del proyecto.');
+            $this->warn('Por favor ajuste su .ENV "APP_DEBUG = false", actualmente se están imprimiendo los mensajes de depuración y esto pone en riesgo la seguridad del proyecto.');
         }
 
         /* Cierre */

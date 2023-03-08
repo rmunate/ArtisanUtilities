@@ -44,10 +44,8 @@ class FlushCache extends Command
         /* Definir Comandos y ejecutar */
         Cache::deleteTMP();
         $this->info('Eliminación Configuración De Cache Actual Exitoso');
-        Cache::artisan();
         $this->info("Cache Actualizado Exitosamente");
-
-        $commands = ListCommands::get();
+        $commands = ListCommands::orderCacheClear();
         $this->info($commands->message);
         foreach ($commands->list as $command => $comment) {
             Artisan::call($command);
