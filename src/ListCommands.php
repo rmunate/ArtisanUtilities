@@ -19,13 +19,18 @@ class ListCommands
     ];
 
     /* Comandos Para Configuracion de Cache */
-    const COMMANDS_CACHE = [
+    const COMMANDS_CACHE_CLEAR = [
         'route:clear'           =>  'Cache De Rutas, Volcado Correctamente.',
         'event:clear'           =>  'Cache De Eventos, Volcado Correctamente.',
         'cache:clear'           =>  'Cache General Del Proyecto, Volcado Correctamente.',
         'config:clear'          =>  'Cache De Configuración Del Proyecto, Volcado Correctamente.',
         'view:clear'            =>  'Cache De Vistas, Colcado Correctamente.',
         'config:cache'          =>  'Revisión Configuración De Cache.'
+    ];
+
+    const COMMANDS_CACHE_CONFIG = [
+        'config:cache'          =>  'Revisión Configuración De Cache.',
+        'optimize'              =>  'Revisión De La Optimización Del Proyecto.'
     ];
 
     /* Mensajes */

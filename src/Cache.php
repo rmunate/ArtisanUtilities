@@ -23,7 +23,7 @@ class Cache
     /* Configurar Cache */
     public static function artisan()
     {
-        foreach (ListCommands::COMMANDS_CACHE as $command => $message) {
+        foreach (ListCommands::COMMANDS_CACHE_CONFIG as $command => $message) {
             Artisan::call($command);
         }
     }
