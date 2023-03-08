@@ -7,7 +7,7 @@ use Rmunate\ArtisanUtilities\Cache;
 use Rmunate\ArtisanUtilities\Storage;
 use Rmunate\ArtisanUtilities\Messages;
 use Illuminate\Support\Facades\Artisan;
-use Rmunate\ArtisanUtilities\CommandOS;
+use Rmunate\ArtisanUtilities\ListCommands;
 use Rmunate\ArtisanUtilities\Utilities;
 
 class FlushCache extends Command
@@ -41,27 +41,22 @@ class FlushCache extends Command
         $this->newLine();
         $this->question('PROCESO 2 => LIMPIEZA DE PROYECTO');
 
-        /* Definir Comandos de Acuerdo al Sistema operativo */
-        $commands = CommandOS::get();
-        $this->info($commands->message);
-
-        foreach ($commands->execute as $command => $comment) {
-            Artisan::call($command);
-            $this->info($comment);
-        }
-
-        /* Configuracion de Cache --- */
-        $this->newLine();
-        $this->question('PROCESO 3 => CONFIGURACION DE CACHE');
-        /* Eliminar Cache Actual */
+        /* Definir Comandos y ejecutar */
         Cache::deleteTMP();
         $this->info('Eliminación Configuración De Cache Actual Exitoso');
         Cache::artisan();
         $this->info("Cache Actualizado Exitosamente");
 
+        $commands = ListCommands::get();
+        $this->info($commands->message);
+        foreach ($commands->list as $command => $comment) {
+            Artisan::call($command);
+            $this->info($comment);
+        }
+
         /* Configuracion de permisos */
         $this->newLine();
-        $this->question('PROCESO 4 => CONFIGURACIÓN DE PERMISOS CARPETAS (STORAGE Y PUBLIC)');
+        $this->question('PROCESO 3 => CONFIGURACIÓN DE PERMISOS CARPETAS (STORAGE Y PUBLIC)');
 
         /* Configuracion Carpeta Storage */
         Utilities::chmod('storage');
@@ -73,7 +68,7 @@ class FlushCache extends Command
 
         /* ReIniciando Composer */
         $this->newLine();
-        $this->question('PROCESO 5 => REGENERAR AUTOLOAD COMPOSER');
+        $this->question('PROCESO 4 => REGENERAR AUTOLOAD COMPOSER');
         $composer = @shell_exec('composer dump-autoload');
         $this->info("Autoload Composer Regenerado");
 

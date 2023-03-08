@@ -7,7 +7,7 @@ use Rmunate\ArtisanUtilities\Cache;
 use Rmunate\ArtisanUtilities\Storage;
 use Rmunate\ArtisanUtilities\Messages;
 use Illuminate\Support\Facades\Artisan;
-use Rmunate\ArtisanUtilities\CommandOS;
+use Rmunate\ArtisanUtilities\ListCommands;
 use Rmunate\ArtisanUtilities\Utilities;
 
 class Deploy extends Command
@@ -17,14 +17,11 @@ class Deploy extends Command
     protected $signature = 'deploy';
 
     /* Descripción del Comando */
-    protected $description = 'Todos los comandos para dejar corriendo el proyecto en Linux Ubuntu.';
-
-
+    protected $description = 'Script de comandos para dejar desplegado el proyecto en Linux Ubuntu.';
 
     /* @return Void */
     public function handle()
     {
-
         /* Inicio Comando */
         $bar = $this->output->createProgressBar(100);
         Utilities::errorHidden();
@@ -44,13 +41,15 @@ class Deploy extends Command
         $this->newLine();
         $this->info('Limpiando Proyecto');
         /* Definir Comandos de Acuerdo al Sistema operativo */
-        $commands = CommandOS::get();
+        $commands = ListCommands::get();
         $this->line($commands->message);
 
-        foreach ($commands->execute as $command => $comment) {
+        foreach ($commands->list as $command => $comment) {
             Artisan::call($command);
             $this->line($comment);
         }
+
+        /* Optimizar Cache Produccion */
         Artisan::call('optimize');
 
         /* Configuracion de permisos */
@@ -83,6 +82,11 @@ class Deploy extends Command
         $this->line("Autoload Composer Regenerado");
 
         $this->question('Proyecto Desplegado!');
+
+        if (env("APP_DEBUG")) {
+            $this->newLine();
+            $this->warn('Por favor ajuste su .ENV "APP_DEBUG = false", actualmente se estan imprimiendo los mensajes de depuración y esto pone en riesgo la seguridad del proyecto.');
+        }
 
         /* Cierre */
         $this->newLine();

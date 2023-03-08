@@ -9,7 +9,6 @@ use Rmunate\ArtisanUtilities\Utilities;
 
 class ConfigCache extends Command
 {
-
     /* Nombre del Comando */
     protected $signature = 'ConfigCache';
 
@@ -19,7 +18,6 @@ class ConfigCache extends Command
     /* @return Void */
     public function handle()
     {
-
         /* Inicio Comando */
         $bar = $this->output->createProgressBar(100);
         Utilities::errorHidden();

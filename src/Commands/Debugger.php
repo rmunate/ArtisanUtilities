@@ -8,8 +8,10 @@ use Rmunate\ArtisanUtilities\Utilities;
 
 class Debugger extends Command
 {
+    /* Nombre Comando */
     protected $signature = 'debugger {code*}';
 
+    /* Descripcion */
     protected $description = 'Ejecute codigo PHP desde la Consola';
 
     public function handle()

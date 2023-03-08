@@ -4,9 +4,12 @@ namespace Rmunate\ArtisanUtilities\Commands;
 
 use Illuminate\Console\Command;
 use Rmunate\ArtisanUtilities\Git;
+use Rmunate\ArtisanUtilities\Cache;
+use Rmunate\ArtisanUtilities\Storage;
 use Rmunate\ArtisanUtilities\Messages;
 use Illuminate\Support\Facades\Artisan;
 use Rmunate\ArtisanUtilities\Utilities;
+use Rmunate\ArtisanUtilities\ListCommands;
 
 class GitPush extends Command
 {
@@ -60,8 +63,19 @@ class GitPush extends Command
         /* LLamado Comando FlushCache */
         $this->newLine();
         $this->info(trim('Limpiando El Proyecto ' . env('APP_NAME', '')));
-        Artisan::call('FlushCache');
-        $this->question('Ejecutado Exitosamente En Segundo Plano El Comando => "php artisan FlushCache"');
+
+        Storage::clearLogs();
+        Cache::deleteTMP();
+        Cache::artisan();
+        $commands = ListCommands::get();
+        $this->info($commands->message);
+        foreach ($commands->list as $command => $comment) {
+            Artisan::call($command);
+            $this->info($comment);
+        }
+        Utilities::chmod('storage');
+        Utilities::chmod('public');
+        $this->question('Ejecutado Exitosamente El Limpiado Del Proyecto.');
 
         /* GIT ADD . */
         $this->newLine();

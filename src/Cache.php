@@ -3,6 +3,7 @@
 namespace Rmunate\ArtisanUtilities;
 
 use Illuminate\Support\Facades\Artisan;
+use Rmunate\ArtisanUtilities\ListCommands;
 
 class Cache
 {
@@ -22,12 +23,9 @@ class Cache
     /* Configurar Cache */
     public static function artisan()
     {
-        /* Comandos Artisan Para Ejecucion En Segundo Plano */
-        Artisan::call('cache:clear');
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
-        Artisan::call('view:clear');
-        
+        foreach (ListCommands::COMMANDS_CACHE as $command => $message) {
+            Artisan::call($command);
+        }
     }
 }
 

@@ -97,7 +97,6 @@ class GitCheckOut extends Command
                 $this->notify(Messages::alertTittle(),Messages::alertBody());
             }
 
-            
         } else {
             
             $this->newLine();

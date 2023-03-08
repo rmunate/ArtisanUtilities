@@ -19,7 +19,6 @@ class DefaultIgnore extends Command
     /* @return Void */
     public function handle()
     {
-
         /* Inicio Comando */
         $bar = $this->output->createProgressBar(100);
         Utilities::errorHidden();
@@ -43,7 +42,6 @@ class DefaultIgnore extends Command
 
         /* Activacion Errores */
         Utilities::errorShow();
-
     }
 }
 
