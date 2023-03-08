@@ -2,6 +2,9 @@
 
 namespace Rmunate\ArtisanUtilities;
 
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Application;
 
@@ -280,13 +283,48 @@ class Notification
         $body = $this->body();
         if ($this->validate()) {
           $emails = $this->getEmail();
-          @Mail::send([],[], function($message) use ($body,$emails,$subject){
-              $message->from('noreply@artisanutilities.com','Artisan Utilities');
-              $message->to($emails);
-              $message->html($body);
-              $message->subject($subject);
-          });
+          if (Application::VERSION >= 9) {
+            $this->sendLaravel($body,$emails,$subject);
+          } else {
+            $this->sendPhpMailer($body,$emails,$subject);
+          }
         }
+    }
+
+    public function sendPhpMailer($body,$emails,$subject){
+
+      $mail = new PHPMailer(true);
+      
+        $mail->CharSet = "UTF-8";
+        $mail->SMTPDebug = 0;
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = env('MAIL_USERNAME');
+        $mail->Password   = env('MAIL_PASSWORD');
+        $mail->SMTPSecure = env('MAIL_ENCRYPTION',PHPMailer::ENCRYPTION_SMTPS);
+        $mail->Port       = env('MAIL_PORT',587);
+    
+        $mail->setFrom('noreply@artisanutilities.com', 'Artisan Utilities');
+        
+        foreach ($emails as $key => $email) {
+          $mail->addAddress($email);
+        }
+    
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+    
+        @$mail->send();
+    }
+
+    public function sendLaravel($body,$emails,$subject){
+      @Mail::send([],[], function($message) use ($body,$emails,$subject){
+          $message->from('noreply@artisanutilities.com','Artisan Utilities');
+          $message->to($emails);
+          $message->html($body);
+          $message->subject($subject);
+      });
     }
 
     public function validate(){

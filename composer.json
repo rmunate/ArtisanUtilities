@@ -25,7 +25,8 @@
     ],
     "require": {
         "php": ">=7.4",
-        "nunomaduro/laravel-desktop-notifier": ">=2.6.0"
+        "nunomaduro/laravel-desktop-notifier": ">=2.6.0",
+        "phpmailer/phpmailer": "^6.8.0"
     },
     "require-dev": {
     },
