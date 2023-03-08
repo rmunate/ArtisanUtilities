@@ -4,32 +4,22 @@ namespace Rmunate\ArtisanUtilities;
 
 class ListCommands
 {
-    /* Litado de Comandos Globles Ajecutar */
-    const COMMANDS_ALL = [
-        'optimize'              =>  'Revisión De La Optimización Del Proyecto.',
-        'config:cache'          =>  'Revisión Configuración De Cache.',
-        'config:clear'          =>  'Cache De Configuración Del Proyecto, Volcado Correctamente.',
-        'cache:clear'           =>  'Cache General Del Proyecto, Volcado Correctamente.',
-        'view:clear'            =>  'Cache De Vistas, Colcado Correctamente.',
-        'route:clear'           =>  'Cache De Rutas, Volcado Correctamente.',
-        'event:clear'           =>  'Cache De Eventos, Volcado Correctamente.',
-        'queue:flush'           =>  'Cache de Cola, volcado correctamente.',
-        'schedule:clear-cache'  =>  'Cache de Calendario, volcado correctamente.',
-        'auth:clear-resets'     =>  'Cache de Tokens Caducados Eliminado del Proyecto Correctamente en base de datos'
-    ];
-
     /* Comandos Para Configuracion de Cache */
     const COMMANDS_CACHE_CLEAR = [
-        'route:clear'           =>  'Cache De Rutas, Volcado Correctamente.',
+        'schedule:clear-cache'  =>  'Cache De Calendario, Volcado Correctamente.',
+        'cache:clear'           =>  'Cache General, Volcado Correctamente.',
+        'auth:clear-resets'     =>  'Cache de Tokens Caducados, Volcado Correctamente',
+        'config:clear'          =>  'Cache De Configuración, Volcado Correctamente.',
         'event:clear'           =>  'Cache De Eventos, Volcado Correctamente.',
-        'cache:clear'           =>  'Cache General Del Proyecto, Volcado Correctamente.',
-        'config:clear'          =>  'Cache De Configuración Del Proyecto, Volcado Correctamente.',
-        'view:clear'            =>  'Cache De Vistas, Colcado Correctamente.',
+        'optimize:clear'        =>  'Cache De Optimización, Volcado Correctamente.',
+        'route:clear'           =>  'Cache De Rutas, Volcado Correctamente.',
+        'view:clear'            =>  'Cache De Vistas, Colcado Correctamente.'
     ];
 
     const COMMANDS_CACHE_CONFIG = [
-        'config:cache'          =>  'Revisión Configuración De Cache.',
-        'optimize'              =>  'Revisión De La Optimización Del Proyecto.'
+        'config:clear'          =>  'Volcado Configuración.',
+        'config:cache'          =>  'Ejecutada La Configuración De Cache.',
+        'optimize'              =>  'Ejecutada La Optimización Del Proyecto.'
     ];
 
     /* Local */

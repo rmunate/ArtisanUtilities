@@ -67,7 +67,7 @@ class Utilities
     /* Validar Si Un Comando Existe */
     public static function commandExists($name)
     {
-        return array_has(Artisan::all(), $name);
+        return in_array($name, array_keys(Artisan::all()));
     }
     
 }
