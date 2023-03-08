@@ -10,6 +10,7 @@ use Rmunate\ArtisanUtilities\Messages;
 use Illuminate\Support\Facades\Artisan;
 use Rmunate\ArtisanUtilities\Utilities;
 use Rmunate\ArtisanUtilities\ListCommands;
+use Rmunate\ArtisanUtilities\Commands\Notification;
 
 class GitPush extends Command
 {
@@ -181,6 +182,12 @@ class GitPush extends Command
         $this->info('Publicando Cambios En La Rama Remota.');
         Git::push($this->argument('rama'));
         Utilities::sleep(4);
+
+        /* Enviar Email */
+        $email = new Notification();
+        $email->setbranch($this->argument('rama'));
+        $email->send();
+
         $this->question('Invocado con Exito => "git push origin ' . $this->argument('rama') . '"');
 
         /* Cierre */
