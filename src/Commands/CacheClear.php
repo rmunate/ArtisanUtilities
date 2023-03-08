@@ -25,16 +25,16 @@ class CacheClear extends Command
 
         /* Configuracion de Cache --- */
         $this->newLine();
-        $this->info('Configuración Total De Cache');
+        $this->info('Volcado Total De Cache');
 
         /* Eliminar Cache Actual */
         Cache::deleteTMP();
         $this->newLine();
-        $this->info('Eliminación Configuración De Cache Actual Exitoso');
+        $this->info('Configuración De Cache Actual Identificado');
 
         /* Configurar Cache */
         Cache::clear();
-        $this->question("Cache Actualizado Exitosamente");
+        $this->question("Cache Volcado Exitosamente");
 
         /* ReIniciando Composer */
         $composer = @shell_exec('composer dump-autoload');
