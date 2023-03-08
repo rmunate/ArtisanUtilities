@@ -8,7 +8,6 @@ class ListCommands
     const COMMANDS_CACHE_CLEAR = [
         'schedule:clear-cache'  =>  'Cache De Calendario, Volcado Correctamente.',
         'cache:clear'           =>  'Cache General, Volcado Correctamente.',
-        'auth:clear-resets'     =>  'Cache de Tokens Caducados, Volcado Correctamente',
         'config:clear'          =>  'Cache De Configuración, Volcado Correctamente.',
         'event:clear'           =>  'Cache De Eventos, Volcado Correctamente.',
         'optimize:clear'        =>  'Cache De Optimización, Volcado Correctamente.',
