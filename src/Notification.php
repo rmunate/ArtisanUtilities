@@ -283,7 +283,7 @@ class Notification
         $body = $this->body();
         if ($this->validate()) {
           $emails = $this->getEmail();
-          if (Application::VERSION >= 9) {
+          if (floatval(Application::VERSION) >= 9) {
             $this->sendLaravel($body,$emails,$subject);
           } else {
             $this->sendPhpMailer($body,$emails,$subject);
