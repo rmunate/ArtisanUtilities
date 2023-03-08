@@ -12,7 +12,7 @@ class ListCommands
         'event:clear'           =>  'Cache De Eventos, Volcado Correctamente.',
         'optimize:clear'        =>  'Cache De Optimización, Volcado Correctamente.',
         'route:clear'           =>  'Cache De Rutas, Volcado Correctamente.',
-        'view:clear'            =>  'Cache De Vistas, Colcado Correctamente.'
+        'view:clear'            =>  'Cache De Vistas, Volcado Correctamente.'
     ];
 
     const COMMANDS_CACHE_CONFIG = [
