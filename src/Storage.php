@@ -5,6 +5,7 @@ namespace Rmunate\ArtisanUtilities;
 use Rmunate\ArtisanUtilities\Ignore;
 use Illuminate\Support\Facades\Artisan;
 use Rmunate\ArtisanUtilities\Utilities;
+use Rmunate\ArtisanUtilities\ListCommands;
 
 class Storage
 {
@@ -92,7 +93,11 @@ class Storage
 
         /* Despues de Crear la carpeta en caso de manejar clave rehacerla === Laravel Passport === */
         if ($oauth_public_key) {
-            Artisan::call('passport:keys');
+            foreach (ListCommands::COMMANDS_LARAVEL_PASSPORT as $command => $coment) {
+                if (Utilities::commandExists($command)) {
+                    Artisan::call($command);
+                }
+            }
         }
     }
 

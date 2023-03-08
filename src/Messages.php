@@ -27,12 +27,12 @@ class Messages
 
     /* Mensaje de Cancelacion */
     public static function alertTittle(){
-        return '» Proceso Completado «';
+        return '» Ejecución Completa «';
     }
     
     /* Mensaje de Cancelacion */
     public static function alertBody(){
-        return '¡Gracias por utilizar Artizan Utilities!. Grupo Altum';
+        return '¡Gracias por utilizar Artizan Utilities!. Grupo Altum Developers';
     }
 }
 

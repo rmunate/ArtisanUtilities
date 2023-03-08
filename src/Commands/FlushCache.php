@@ -48,8 +48,10 @@ class FlushCache extends Command
         $commands = ListCommands::orderCacheClear();
         $this->info($commands->message);
         foreach ($commands->list as $command => $comment) {
-            Artisan::call($command);
-            $this->info($comment);
+            if (Utilities::commandExists($command)) {
+                Artisan::call($command);
+                $this->line($comment);
+            }
         }
 
         /* Configuracion de permisos */

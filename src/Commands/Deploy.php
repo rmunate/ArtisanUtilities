@@ -41,8 +41,10 @@ class Deploy extends Command
         $commands = ListCommands::orderDeploy();
         $this->line($commands->message);
         foreach ($commands->list as $command => $comment) {
-            Artisan::call($command);
-            $this->line($comment);
+            if (Utilities::commandExists($command)) {
+                Artisan::call($command);
+                $this->line($comment);
+            }
         }
 
         /* Configuracion de permisos */

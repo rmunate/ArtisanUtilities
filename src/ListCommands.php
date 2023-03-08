@@ -25,6 +25,10 @@ class ListCommands
         'key:generate'          =>  'Creacion Nueva Llave Pryecto (.ENV).',
     ];
 
+    const COMMANDS_LARAVEL_PASSPORT = [
+        'passport:keys'          =>  'Creacion Nueva Llave Pryecto (.ENV).',
+    ];
+
     /* OrderDeploy */
     public static function orderDeploy(){
         return (object) [
