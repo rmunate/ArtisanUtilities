@@ -44,7 +44,7 @@ Si trabajas en un equipo de desarrolladores y quieres notificar cada vez que se 
 
 ```php
 #Ejemplo Variable env (Separar correos con coma)
-ARTISAN_UTILITIES_EMAILS = "raulmauriciounate@gmail.com.co,otro@otro.com.co"
+ARTISAN_UTILITIES_EMAILS = "raulmauriciounate@gmail.com.co,ds.jorgecastaneda@gmail.com"
 ```
 
 ## Metodos Framework
