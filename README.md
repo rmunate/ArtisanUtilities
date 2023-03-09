@@ -43,7 +43,7 @@ composer require rmunate/artisan-utilities 5.0.x-dev
 Si trabajas en un equipo de desarrolladores y quieres notificar cada vez que se publique un nuevo cambio en GIT, puedes crear en el .env del proyecto, una lista de correos para que sean notificados cada vez que se ejecute con exito `php artisan GitPush Rama`, de igual manera deberás activar la funcionalidad.
 Debes tener una cuenta de correo configurada en el .env
 
-```console
+```env
 # VARIABLES DE ENTERNO OBLIGATORIAS PARA NOTIFICACIONES
 #-- Define si se debe notificar por correo en cada actualización por defecto la librería NO notifica.
 ARTISAN_UTILITIES_NOTIFICATION = true 
