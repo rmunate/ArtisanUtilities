@@ -43,19 +43,19 @@ composer require rmunate/artisan-utilities 5.0.x-dev
 Si trabajas en un equipo de desarrolladores y quieres notificar cada vez que se publique un nuevo cambio en GIT, puedes crear en el .env del proyecto, una lista de correos para que sean notificados cada vez que se ejecute con exito `php artisan GitPush Rama`, de igual manera deberás activar la funcionalidad.
 Debes tener una cuenta de correo configurada en el .env
 
-```console
+```php
 # VARIABLES DE ENTERNO OBLIGATORIAS PARA NOTIFICACIONES
 ARTISAN_UTILITIES_NOTIFICATION = true #-- Define si se debe notificar por correo en cada actualización por defecto la librería NO notifica.
 ARTISAN_UTILITIES_NOTIFICATION_EMAILS = "raulmauriciounate@gmail.com.co,ds.jorgecastaneda@gmail.com" #-- Lista de correos destino separados por Coma
 
 #VARIABLES DE ENTORNO ADICIONALES PARA CUSTOMIZAR LA PLANTILLA
-ARTISAN_UTILITIES_NOTIFICATION_HEADER_IMG = 'https://pagina.com/image_header.png' #-- Imagen de cabecera del correo (Debe ser por URL).
-ARTISAN_UTILITIES_NOTIFICATION_FOOTER_IMG = 'https://pagina.com/image_footer.png' #-- Imagen de la parte inferior del correo (Debe ser por URL)..
-ARTISAN_UTILITIES_NOTIFICATION_SING_IMG = 'https://pagina.com/image_sing.png' #-- Imagen al final del correo, junto al © (Debe ser por URL)..
-ARTISAN_UTILITIES_NOTIFICATION_SING_LINK = 'https://equipodesarrollo.com/inicio' #-- href imagen anterior.
-ARTISAN_UTILITIES_NOTIFICATION_HIDDEN_LINKS = true #-- Oculta el mensaje de 'Mas librerías en https://github.com/rmunate/'
-ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT = 'RMUC DEV GROUP' #-- Nombre personalizado del Copyright.
-ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT_YEAR = '2023' #-- Año del Copyright.
+ARTISAN_UTILITIES_NOTIFICATION_HEADER_IMG = "https://pagina.com/image_header.png" #-- Imagen de cabecera del correo (Debe ser por URL).
+ARTISAN_UTILITIES_NOTIFICATION_FOOTER_IMG = "https://pagina.com/image_footer.png" #-- Imagen de la parte inferior del correo (Debe ser por URL)..
+ARTISAN_UTILITIES_NOTIFICATION_SING_IMG = "https://pagina.com/image_sing.png" #-- Imagen al final del correo, junto al © (Debe ser por URL)..
+ARTISAN_UTILITIES_NOTIFICATION_SING_LINK = "https://equipodesarrollo.com/inicio" #-- href imagen anterior.
+ARTISAN_UTILITIES_NOTIFICATION_HIDDEN_LINKS = true #-- Oculta el mensaje de "Mas librerías en https://github.com/rmunate/"
+ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT = "RMUC DEV GROUP" #-- Nombre personalizado del Copyright.
+ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT_YEAR = "2023" #-- Año del Copyright.
 
 ```
 
