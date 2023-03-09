@@ -40,33 +40,45 @@ composer require rmunate/artisan-utilities 5.0.x-dev
 
 
 ## Notifiaciones Email
-Si trabajas en un equipo de desarrolladores y quieres notificar cada vez que se publique un nuevo cambio en GIT, puedes crear en el .env del proyecto, una lista de correos para que sean notificados cada vez que se ejecute con exito `php artisan GitPush Rama`, de igual manera deberás activar la funcionalidad.
-Debes tener una cuenta de correo configurada en el .env
+Si trabajas en un equipo de desarrolladores y quieres notificar cada vez que publique un nuevo cambio en GIT, puedes crear en el .env del proyecto, una lista de correos para que sean notificados cada vez que se ejecute con éxito `php artisan GitPush Rama`, a continuación se muestra las variables de entorno y las adicionales si deseas modificar la plantilla por defecto.
+Debes tener una cuenta de correo configurada en el .env para que desde allí se envíen las notificaciones. La librería por temas de seguridad no usa credenciales externas.
+
 
 ```env
 # VARIABLES DE ENTERNO OBLIGATORIAS PARA NOTIFICACIONES
-#-- Define si se debe notificar por correo en cada actualización por defecto la librería NO notifica.
+
+#--// Define si se debe notificar por correo en cada actualización por defecto la librería NO notifica.
 ARTISAN_UTILITIES_NOTIFICATION = true 
-#-- Lista de correos destino separados por Coma
+
+#--// Lista de correos destino separados por Coma
 ARTISAN_UTILITIES_NOTIFICATION_EMAILS = "raulmauriciounate@gmail.com.co,ds.jorgecastaneda@gmail.com" 
 
 #VARIABLES DE ENTORNO ADICIONALES PARA CUSTOMIZAR LA PLANTILLA
-#-- Imagen de cabecera del correo (Debe ser por URL).
-ARTISAN_UTILITIES_NOTIFICATION_HEADER_IMG = https://pagina.com/image_header.png
-#-- Imagen de la parte inferior del correo (Debe ser por URL)..
-ARTISAN_UTILITIES_NOTIFICATION_FOOTER_IMG = https://pagina.com/image_footer.png
-#-- Imagen al final del correo, junto al © (Debe ser por URL)..
-ARTISAN_UTILITIES_NOTIFICATION_SIGN_IMG = https://pagina.com/image_sing.png
-#-- href imagen anterior.
-ARTISAN_UTILITIES_NOTIFICATION_SIGN_LINK = https://equipodesarrollo.com/inicio
-#-- Oculta el mensaje de "Mas librerías en https://github.com/rmunate/"
+
+#--// Imagen de cabecera del correo (Debe ser por URL).
+ARTISAN_UTILITIES_NOTIFICATION_HEADER_IMG = "https://pagina.com/image_header.png"
+
+#--// Imagen de la parte inferior del correo (Debe ser por URL)..
+ARTISAN_UTILITIES_NOTIFICATION_FOOTER_IMG = "https://pagina.com/image_footer.png"
+
+#--// Imagen al final del correo, junto al © (Debe ser por URL)..
+ARTISAN_UTILITIES_NOTIFICATION_SIGN_IMG = "https://pagina.com/image_sing.png"
+
+#--// href imagen anterior.
+ARTISAN_UTILITIES_NOTIFICATION_SIGN_LINK = "https://equipodesarrollo.com/inicio"
+
+#--// Oculta el mensaje de "Gracias por Utilizar Arti.... Mas librerías en https://github.com/...."
 ARTISAN_UTILITIES_NOTIFICATION_HIDDEN_LINKS = true 
-#-- Nombre personalizado del Copyright.
-ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT = RMUC DEV GROUP
-#-- Año del Copyright.
-ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT_YEAR = 2023
+
+#--// Nombre personalizado del Copyright.
+ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT = "RMUC DEV GROUP"
+
+#--// Año del Copyright.
+ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT_YEAR = "2023"
 
 ```
+
+[![Ejemplo Email](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/AU_EMAIL.png)](#)
 
 ## Metodos Framework
 
