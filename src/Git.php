@@ -243,6 +243,17 @@ class Git
         return shell_exec('git checkout '. $cambio);
     }
 
+    /* URL Remota */
+    public static function remoteURL(){
+        /* Retorna las lineas de GitStatus */
+        $remoteURL = shell_exec('git remote show origin');
+        /* Convertir en arreglo */
+        $remoteURL = explode("\n", $remoteURL);
+        /* Obtener URL */
+        $url = trim(explode(': ',$remoteURL[1])[1]);
+        return $url;
+    }
+
 }
 
 ?>

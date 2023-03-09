@@ -3,6 +3,7 @@
 namespace Rmunate\ArtisanUtilities;
 
 use PHPMailer\PHPMailer\SMTP;
+use Rmunate\ArtisanUtilities\Git;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Support\Facades\Mail;
@@ -38,15 +39,11 @@ class Notification
     }
 
     public function serverName(){
-      $sn = $_SERVER["SERVER_NAME"];
-      if (str_contains($sn, 'localhost') || str_contains($sn, '127.') || str_contains($sn, '.test')) {
-        return '#';
-      }
-      return $sn;
+      return env('APP_URL', 'LocalHost (APP_URL)');
     }
 
     public function serverAdress(){
-      $sa = $_SERVER["SERVER_ADDR"];
+      $sa = getHostByName(getHostName());
       if (str_contains($sa, 'localhost') || str_contains($sa, '127.')) {
         return 'Local Host (127.0.0.1)';
       }
@@ -54,7 +51,7 @@ class Notification
     }
 
     public function urlGit(){
-      return '';
+      return Git::remoteURL();
     }
 
     public function getDataNotification(){
@@ -65,7 +62,8 @@ class Notification
             'SO'        => php_uname(),
             'PHP'       => PHP_VERSION,
             'laravel'   => Application::VERSION,
-            'url'       => $this->serverName()
+            'url'       => $this->serverName(),
+            'git'       => $this->urlGit()
         ];
     }
 
@@ -73,6 +71,49 @@ class Notification
       return env(
         'ARTISAN_UTILITIES_NOTIFICATION_HEADER_IMG',
         'https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/au_h.png'
+      );
+    }
+
+    public function getImageFooter(){
+      return env(
+        'ARTISAN_UTILITIES_NOTIFICATION_FOOTER_IMG',
+        'https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/au_f.png'
+      );
+    }
+
+    public function getImageSing(){
+      return env(
+        'ARTISAN_UTILITIES_NOTIFICATION_SING_IMG',
+        'https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/au_s.png'
+      );
+    }
+
+    public function getImageSingLink(){
+      return env(
+        'ARTISAN_UTILITIES_NOTIFICATION_SING_LINK',
+        'https://github.com/rmunate/'
+      );
+    }
+
+    public function getHiddenLinks(){
+      if(!env('ARTISAN_UTILITIES_NOTIFICATION_HIDDEN_LINKS',false)){
+        return '<tr>
+        <td align="left" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, helvetica neue, arial, verdana, sans-serif;line-height:21px;color:#2D3142;font-size:14px">Gracias por utilizar Artisan Utilities,<br>Mas librerias en&nbsp;https://github.com/rmunate/</p></td>
+       </tr>';
+      }
+    }
+
+    public function getCopyright(){
+      return env(
+        'ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT',
+        'Altum Digital Developers'
+      );
+    }
+
+    public function getCopyrightYear(){
+      return env(
+        'ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT_YEAR',
+        date('Y')
       );
     }
 
@@ -84,20 +125,20 @@ class Notification
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta content="telephone=no" name="format-detection">
       <title>Artisan Utilities</title><!--[if (mso 16)]>
-        <style type="text/css">
-        a {text-decoration: none;}
-        </style>
-        <![endif]--><!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]--><!--[if gte mso 9]>
-    <xml>
-        <o:OfficeDocumentSettings>
-        <o:AllowPNG></o:AllowPNG>
-        <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-    </xml>
-    <![endif]--><!--[if !mso]><!-- -->
-      <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet"><!--<![endif]-->
-      ' . $this->styles() . '
-     </head>';
+      <style type="text/css">
+      a {text-decoration: none;}
+      </style>
+      <![endif]--><!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]--><!--[if gte mso 9]>
+      <xml>
+          <o:OfficeDocumentSettings>
+          <o:AllowPNG></o:AllowPNG>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+          </o:OfficeDocumentSettings>
+      </xml>
+      <![endif]--><!--[if !mso]><!-- -->
+        <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet"><!--<![endif]-->
+        ' . $this->styles() . '
+      </head>';
     }
 
     public function styles(){
@@ -150,8 +191,9 @@ class Notification
         $data = $this->getDataNotification();
 
         return $this->DOCTYPE() . $this->head() . '
-         <body style="width:100%;font-family:arial, helvetica neue, helvetica, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
-          <div class="es-wrapper-color" style="background-color:#FFFFFF"><!--[if gte mso 9]>
+        <body style="width:100%;font-family:arial, helvetica neue, helvetica, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
+          <div class="es-wrapper-color" style="background-color:#FFFFFF">
+                <!--[if gte mso 9]>
                     <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
                         <v:fill type="tile" color="#ffffff"></v:fill>
                     </v:background>
@@ -196,7 +238,7 @@ class Notification
                           <td align="center" valign="top" style="padding:0;Margin:0;width:520px">
                            <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#fafafa" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#fafafa;border-radius:10px" role="presentation">
                              <tr>
-                              <td align="left" style="padding:10px;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, helvetica neue, arial, verdana, sans-serif;line-height:21px;color:#2D3142;font-size:14px"><strong>Fecha y Hora:</strong>&nbsp;' . $data->fecha . '<br><strong>Rama:</strong>&nbsp;' . $data->branch . '<br><strong>IP: </strong>' . $data->IP . '<br><strong>SO: </strong>' . $data->SO .'<br><strong>Version PHP</strong>: ' . $data->PHP .'<br><strong>Version Laravel: </strong>' . $data->laravel .'<br>' . $this->getChanges() . '</p></td>
+                              <td align="left" style="padding:10px;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, helvetica neue, arial, verdana, sans-serif;line-height:21px;color:#2D3142;font-size:14px"><strong>Fecha y Hora:</strong>&nbsp;' . $data->fecha . '<br><strong>Rama:</strong>&nbsp;' . $data->branch . '<br><strong>IP: </strong>' . $data->IP . '<br><strong>SO: </strong>' . $data->SO .'<br><strong>Version PHP</strong>: ' . $data->PHP .'<br><strong>Version Laravel: </strong>' . $data->laravel .'<br><strong>Repositorio Git: </strong>' . $data->git .'<br>' . $this->getChanges() . '</p></td>
                              </tr>
                            </table></td>
                          </tr>
@@ -234,10 +276,7 @@ class Notification
                          <tr>
                           <td align="center" valign="top" style="padding:0;Margin:0;width:520px">
                            <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                             <tr>
-                              <td align="left" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, helvetica neue, arial, verdana, sans-serif;line-height:21px;color:#2D3142;font-size:14px">Gracias por utilizar Artisan Utilities,<br>Mas librerias en&nbsp;https://github.com/rmunate/</p></td>
-                             </tr>
-                             <tr>
+                           ' . $this->getHiddenLinks() . '<tr>
                               <td align="center" style="padding:0;Margin:0;padding-bottom:20px;padding-top:40px;font-size:0">
                                <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                  <tr>
@@ -266,7 +305,7 @@ class Notification
                               <td align="center" valign="top" style="padding:0;Margin:0;width:47px">
                                <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                  <tr>
-                                  <td align="center" class="es-m-txt-l" style="padding:0;Margin:0;font-size:0px"><a target="_blank" href="#" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2D3142;font-size:18px"><img src="https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/au_f.png" alt="Artisan Utilities" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="47" title="Demo"></a></td>
+                                  <td align="center" class="es-m-txt-l" style="padding:0;Margin:0;font-size:0px"><a target="_blank" href="#" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2D3142;font-size:18px"><img src="' . $this->getImageFooter() . '" alt="Artisan Utilities" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="47" title="Artisan Utilities"></a></td>
                                  </tr>
                                </table></td>
                              </tr>
@@ -300,10 +339,10 @@ class Notification
                           <td align="left" style="padding:0;Margin:0;width:560px">
                            <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                              <tr>
-                              <td align="center" style="padding:0;Margin:0;font-size:0px"><a target="_blank" href="https://github.com/rmunate" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2D3142;font-size:14px"><img src="https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/au_s.png" alt="Logo" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" title="Logo" class="adapt-img" width="175"></a></td>
+                              <td align="center" style="padding:0;Margin:0;font-size:0px"><a target="_blank" href="' . $this->getImageSingLink() . '" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2D3142;font-size:14px"><img src="' . $this->getImageSing() . '" alt="Artisan Utilities" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" title="Artisan Utilities" class="adapt-img" width="175"></a></td>
                              </tr>
                              <tr>
-                              <td align="center" style="padding:0;Margin:0;padding-top:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Imprima, Arial, sans-serif;line-height:21px;color:#2D3142;font-size:14px"><a target="_blank" href="" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2D3142;font-size:14px"></a>Copyright © ' . date('Y') . ' | Altum Digital Developers<a target="_blank" href="" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2D3142;font-size:14px"></a></p></td>
+                              <td align="center" style="padding:0;Margin:0;padding-top:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Imprima, Arial, sans-serif;line-height:21px;color:#2D3142;font-size:14px"><a target="_blank" href="#" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2D3142;font-size:14px"></a>Copyright © ' . $this->getCopyrightYear() . ' | ' . $this->getCopyright() . '<a target="_blank" href="#" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2D3142;font-size:14px"></a></p></td>
                              </tr>
                            </table></td>
                          </tr>
@@ -390,9 +429,7 @@ class Notification
         array_push($emails, $this->getEmailsAltum()[0]);
       }
       return $emails;
-    }
-    
+    }    
 }
-
 
 ?>
