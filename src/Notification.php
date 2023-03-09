@@ -83,14 +83,14 @@ class Notification
 
     public function getImageSing(){
       return env(
-        'ARTISAN_UTILITIES_NOTIFICATION_SING_IMG',
+        'ARTISAN_UTILITIES_NOTIFICATION_SIGN_IMG',
         'https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/au_s.png'
       );
     }
 
     public function getImageSingLink(){
       return env(
-        'ARTISAN_UTILITIES_NOTIFICATION_SING_LINK',
+        'ARTISAN_UTILITIES_NOTIFICATION_SIGN_LINK',
         'https://github.com/rmunate/'
       );
     }
