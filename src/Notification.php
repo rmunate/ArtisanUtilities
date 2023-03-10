@@ -36,7 +36,7 @@ class Notification
     public function getComment(){
       $html = '';
       if (!empty($this->comment)) {
-        $html = '<hr>' . $this->comment . '<br>';
+        $html = '<hr><strong>Comentario Cambio: </strong>' . $this->comment . '<br>';
       }
       return $html;
     }
