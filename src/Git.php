@@ -137,8 +137,10 @@ class Git
         if((count($array) > 0) && ($array[0] != Self::WITHOUT_CHANGES)){
             $data = [];
             foreach ($array as $key => $value) {
-                $linea = explode(" : ", $value)[1];
-                array_push($data, $linea);
+                $linea = explode(": ", $value)[1];
+                if (!empty($linea)) {
+                    array_push($data, $linea);
+                }
             }
             $data = implode('- ', $data);
             return Self::TEXT_BEFORE_CHANGED_FILES . $data;
