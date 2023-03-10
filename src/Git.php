@@ -140,7 +140,7 @@ class Git
                 $linea = explode(" : ", $value)[1];
                 array_push($data, $linea);
             }
-            $data = implode(', ', $data);
+            $data = implode('- ', $data);
             return Self::TEXT_BEFORE_CHANGED_FILES . $data;
         } else {
             return Self::DEFAULT_COMMENT_WITHOUT_CHANGES;

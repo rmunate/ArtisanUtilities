@@ -56,16 +56,16 @@ ARTISAN_UTILITIES_NOTIFICATION_EMAILS = "raulmauriciounate@gmail.com.co,ds.jorge
 #VARIABLES DE ENTORNO ADICIONALES PARA CUSTOMIZAR LA PLANTILLA
 
 #--// Imagen de cabecera del correo (Debe ser por URL).
-ARTISAN_UTILITIES_NOTIFICATION_HEADER_IMG = "https://pagina.com/image_header.png"
+ARTISAN_UTILITIES_NOTIFICATION_HEADER_IMG = "https://page.com/image_header.png"
 
-#--// Imagen de la parte inferior del correo (Debe ser por URL)..
-ARTISAN_UTILITIES_NOTIFICATION_FOOTER_IMG = "https://pagina.com/image_footer.png"
+#--// Imagen de la parte inferior del correo (Debe ser por URL).
+ARTISAN_UTILITIES_NOTIFICATION_FOOTER_IMG = "https://page.com/image_footer.png"
 
-#--// Imagen al final del correo, junto al © (Debe ser por URL)..
-ARTISAN_UTILITIES_NOTIFICATION_SIGN_IMG = "https://pagina.com/image_sing.png"
+#--// Imagen al final del correo, junto al © (Debe ser por URL).
+ARTISAN_UTILITIES_NOTIFICATION_SIGN_IMG = "https://page.com/image_sing.png"
 
 #--// href imagen anterior.
-ARTISAN_UTILITIES_NOTIFICATION_SIGN_LINK = "https://equipodesarrollo.com/inicio"
+ARTISAN_UTILITIES_NOTIFICATION_SIGN_LINK = "https://teamsdevelopers.com/home"
 
 #--// Oculta el mensaje de "Gracias por Utilizar Arti.... Mas librerías en https://github.com/...."
 ARTISAN_UTILITIES_NOTIFICATION_HIDDEN_LINKS = true 
@@ -78,7 +78,7 @@ ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT_YEAR = "2023"
 
 ```
 
-[![Ejemplo Email](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/AU_EMAIL.png)](#)
+[![Ejemplo Email](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/AU_EMAIL.png)](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/AU_EMAIL.png)
 
 ## Metodos Framework
 
