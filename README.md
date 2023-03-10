@@ -77,7 +77,7 @@ ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT = "RMUC DEV GROUP"
 ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT_YEAR = "2023"
 
 ```
-
+## Email De Notificación Por Defecto
 [![Ejemplo Email](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/AU_EMAIL.png)](#)
 
 ## Metodos Framework

@@ -89,6 +89,7 @@ class GitPush extends Command
         
         /* GIT COMMIT - Definir si existe comentarios para el Commit */
         $options = $this->option();
+        $comment = null;
         if (is_string($options["m"])) {
 
             /* Se Valida la longitud de la Observacion. */
@@ -99,6 +100,7 @@ class GitPush extends Command
                 Git::commit($options["m"]);
                 Utilities::sleep(3);
                 $this->question('Invocado con Exito => git commit -m "' . $options["m"] . '"');
+                $comment = $options["m"];
 
             } else {
 
@@ -187,6 +189,7 @@ class GitPush extends Command
         $email = new Notification();
         $email->setbranch($this->argument('rama'));
         $email->setChanges($gitStatus);
+        $email->setComment($comment);
         $email->send();
 
         $this->question('Invocado con Exito => "git push origin ' . $this->argument('rama') . '"');

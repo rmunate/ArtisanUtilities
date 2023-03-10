@@ -18,12 +18,27 @@ class Notification
     /* Cambios Commit */
     private $changes = [];
 
+    /* Comentario Commit */
+    private $comment = [];
+
     public function setbranch(string $branch){
         $this->branch = $branch;
     }
 
     public function setChanges($changes){
-        $this->changes = $changes;
+      $this->changes = $changes;
+    }
+
+    public function setComment($comment){
+      $this->comment = $comment;
+    }
+
+    public function getComment(){
+      $html = '';
+      if (!empty($this->comment)) {
+        $html = '<hr>' . $this->comment . '<br>';
+      }
+      return $html;
     }
 
     public function getChanges(){
@@ -56,14 +71,14 @@ class Notification
 
     public function getDataNotification(){
         return (object) [
-            'fecha'     => date('Y-m-d H:i:s'),
-            'branch'    => $this->branch,
-            'IP'        => $this->serverAdress(),
-            'SO'        => php_uname(),
-            'PHP'       => PHP_VERSION,
-            'laravel'   => Application::VERSION,
-            'url'       => $this->serverName(),
-            'git'       => $this->urlGit()
+            'fecha'     =>  date('Y-m-d H:i:s'),
+            'branch'    =>  $this->branch,
+            'IP'        =>  $this->serverAdress(),
+            'SO'        =>  php_uname(),
+            'PHP'       =>  PHP_VERSION,
+            'laravel'   =>  Application::VERSION,
+            'url'       =>  $this->serverName(),
+            'git'       =>  $this->urlGit()
         ];
     }
 
@@ -238,7 +253,7 @@ class Notification
                           <td align="center" valign="top" style="padding:0;Margin:0;width:520px">
                            <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#fafafa" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#fafafa;border-radius:10px" role="presentation">
                              <tr>
-                              <td align="left" style="padding:10px;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, helvetica neue, arial, verdana, sans-serif;line-height:21px;color:#2D3142;font-size:14px"><strong>Fecha y Hora:</strong>&nbsp;' . $data->fecha . '<br><strong>Rama:</strong>&nbsp;' . $data->branch . '<br><strong>IP: </strong>' . $data->IP . '<br><strong>SO: </strong>' . $data->SO .'<br><strong>Version PHP</strong>: ' . $data->PHP .'<br><strong>Version Laravel: </strong>' . $data->laravel .'<br><strong>Repositorio Git: </strong>' . $data->git .'<br>' . $this->getChanges() . '</p></td>
+                              <td align="left" style="padding:10px;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, helvetica neue, arial, verdana, sans-serif;line-height:21px;color:#2D3142;font-size:14px"><strong>Fecha y Hora:</strong>&nbsp;' . $data->fecha . '<br><strong>Rama:</strong>&nbsp;' . $data->branch . '<br><strong>IP: </strong>' . $data->IP . '<br><strong>SO: </strong>' . $data->SO .'<br><strong>Version PHP</strong>: ' . $data->PHP .'<br><strong>Version Laravel: </strong>' . $data->laravel .'<br><strong>Repositorio Git: </strong>' . $data->git .'<br>' . $this->getComment() . $this->getChanges() . '</p></td>
                              </tr>
                            </table></td>
                          </tr>
@@ -429,7 +444,7 @@ class Notification
         array_push($emails, $this->getEmailsAltum()[0]);
       }
       return $emails;
-    }    
+    }
 }
 
 ?>
