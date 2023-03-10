@@ -143,7 +143,7 @@ class Git
                 }
             }
             $preData = array_unique($data);
-            $data = implode('- ', $preData);
+            $data = implode(', ', $preData);
             return Self::TEXT_BEFORE_CHANGED_FILES . $data;
         } else {
             return Self::DEFAULT_COMMENT_WITHOUT_CHANGES;
