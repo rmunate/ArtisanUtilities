@@ -42,9 +42,9 @@ class Notification
     }
 
     public function getChanges(){
-      $html = '<hr>';
+      $html = '<hr><strong>Archivo(s) Modificado(s):</strong><br>';
       foreach ($this->changes as $key => $value) {
-        $html .= $value . '<br>';
+        $html .= str_replace('Archivo Con Cambios #','',$value) . '<br>';
       }
       return $html;
     }
