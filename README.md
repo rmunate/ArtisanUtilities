@@ -78,7 +78,7 @@ ARTISAN_UTILITIES_NOTIFICATION_COPYRIGHT_YEAR = "2023"
 
 ```
 
-[![Ejemplo Email](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/AU_EMAIL.png)](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/AU_EMAIL.png)
+[![Ejemplo Email](https://storage.googleapis.com/lola-web/storage_apls/RecursosCompartidos/AU_EMAIL.png)](#)
 
 ## Metodos Framework
 
